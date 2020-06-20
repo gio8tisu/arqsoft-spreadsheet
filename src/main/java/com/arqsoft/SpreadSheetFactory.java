@@ -1,18 +1,19 @@
 package com.arqsoft;
 
 import com.arqsoft.domain.*;
+import com.arqsoft.util.ContentChecker;
+import com.arqsoft.util.TextContentChecker;
 
 public class SpreadSheetFactory {
-    public SpreadSheetFactory(){}
+    private ContentChecker textContentChecker;
+    public SpreadSheetFactory(){
+        textContentChecker = new TextContentChecker();
+    }
 
     public Content createContent(String spec) throws InvalidContentException {
         if (spec.startsWith("\"") | spec.startsWith("\'")) {
-            if (spec.startsWith("\"") & spec.endsWith("\""))
-                return new TextContent(spec.substring(1, spec.length() - 1));
-            else if (spec.startsWith("\'") & spec.endsWith("\'"))
-                return new TextContent(spec.substring(1, spec.length() - 1));
-            else
-                throw new InvalidContentException("Quotes do not match.");
+            String correctedSpec = textContentChecker.checkInput(spec);
+            return new TextContent(correctedSpec);
         } else if (spec.startsWith("=")) {
             throw new UnsupportedOperationException("Cannot create formula content");
         } else {
