@@ -1,4 +1,4 @@
-package com.arqsoft.domain;
+package com.arqsoft.spreadsheet.model.domain;
 
 import java.util.HashMap;
 import java.util.Map;

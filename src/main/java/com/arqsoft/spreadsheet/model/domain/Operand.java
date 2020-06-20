@@ -1,0 +1,4 @@
+package com.arqsoft.spreadsheet.model.domain;
+
+public interface Operand {
+}

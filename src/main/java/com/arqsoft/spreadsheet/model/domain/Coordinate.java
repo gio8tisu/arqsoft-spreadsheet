@@ -1,4 +1,4 @@
-package com.arqsoft.domain;
+package com.arqsoft.spreadsheet.model.domain;
 
 public class Coordinate {
     private int row;

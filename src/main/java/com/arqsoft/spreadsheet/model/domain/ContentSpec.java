@@ -1,6 +1,6 @@
-package com.arqsoft.domain;
+package com.arqsoft.spreadsheet.model.domain;
 
-import com.arqsoft.util.Spec;
+import com.arqsoft.spreadsheet.model.util.Spec;
 
 public class ContentSpec implements Spec {
     private String content;

@@ -1,9 +1,9 @@
-package com.arqsoft;
+package com.arqsoft.spreadsheet.model;
 
-import com.arqsoft.domain.Cell;
-import com.arqsoft.domain.Content;
-import com.arqsoft.domain.Coordinate;
-import com.arqsoft.domain.SpreadSheet;
+import com.arqsoft.spreadsheet.model.domain.Cell;
+import com.arqsoft.spreadsheet.model.domain.Content;
+import com.arqsoft.spreadsheet.model.domain.Coordinate;
+import com.arqsoft.spreadsheet.model.domain.SpreadSheet;
 
 import java.util.Map;
 

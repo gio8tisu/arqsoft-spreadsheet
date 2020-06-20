@@ -1,10 +1,11 @@
-package com.arqsoft;
+package com.arqsoft.spreadsheet.model;
 
 import com.arqsoft.domain.*;
-import com.arqsoft.util.CoordinateChecker;
-import com.arqsoft.util.InputChecker;
-import com.arqsoft.util.Spec;
-import com.arqsoft.util.TextContentChecker;
+import com.arqsoft.model.domain.*;
+import com.arqsoft.spreadsheet.model.util.CoordinateChecker;
+import com.arqsoft.spreadsheet.model.util.InputChecker;
+import com.arqsoft.spreadsheet.model.util.TextContentChecker;
+import com.arqsoft.spreadsheet.model.domain.*;
 
 public class SpreadSheetFactory {
     private InputChecker textContentChecker;
