@@ -1,6 +1,4 @@
-package com.arqsoft.spreadsheet.model.domain;
-
-import com.arqsoft.spreadsheet.model.util.Spec;
+package com.arqsoft.spreadsheet.model;
 
 public class CoordinateSpec implements Spec {
     private int row;

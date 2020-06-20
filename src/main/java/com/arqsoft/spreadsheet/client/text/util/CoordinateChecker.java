@@ -1,7 +1,8 @@
-package com.arqsoft.spreadsheet.model.util;
+package com.arqsoft.spreadsheet.client.text.util;
 
-import com.arqsoft.spreadsheet.model.InvalidInputException;
-import com.arqsoft.spreadsheet.model.domain.CoordinateSpec;
+import com.arqsoft.spreadsheet.client.text.InvalidInputException;
+import com.arqsoft.spreadsheet.model.CoordinateSpec;
+import com.arqsoft.spreadsheet.model.Spec;
 
 public class CoordinateChecker implements InputChecker {
     @Override
