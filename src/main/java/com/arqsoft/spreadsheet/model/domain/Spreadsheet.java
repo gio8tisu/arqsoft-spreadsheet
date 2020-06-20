@@ -3,10 +3,10 @@ package com.arqsoft.spreadsheet.model.domain;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SpreadSheet {
+public class Spreadsheet {
     private Map<Coordinate, Cell> cells;
 
-    public SpreadSheet() {
+    public Spreadsheet() {
         this.cells = new HashMap<>();
     }
 

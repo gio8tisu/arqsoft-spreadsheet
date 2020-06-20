@@ -1,6 +1,6 @@
 package com.arqsoft.spreadsheet.client.text;
 
-import com.arqsoft.spreadsheet.client.SpreadSheetController;
+import com.arqsoft.spreadsheet.client.SpreadsheetController;
 import com.arqsoft.spreadsheet.client.text.util.CoordinateChecker;
 import com.arqsoft.spreadsheet.client.text.util.NumericalContentChecker;
 import com.arqsoft.spreadsheet.client.text.util.TextContentChecker;
@@ -9,14 +9,14 @@ import com.arqsoft.spreadsheet.model.CoordinateSpec;
 
 public class Client {
 
-    private SpreadSheetController controller;
+    private SpreadsheetController controller;
     private TextContentChecker textContentChecker;
     private NumericalContentChecker numericalContentChecker;
     private CoordinateChecker coordinateChecker;
 
     public Client() {}
 
-    public void setController(SpreadSheetController controller) {
+    public void setController(SpreadsheetController controller) {
         this.controller = controller;
     }
 
@@ -51,7 +51,7 @@ public class Client {
     public static void main(String[] args) {
         try {
             System.out.println("Start.");
-            SpreadSheetController controller = new SpreadSheetController();
+            SpreadsheetController controller = new SpreadsheetController();
             controller.buildFrameWork();
 
             Client client = new Client();

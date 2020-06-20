@@ -2,8 +2,8 @@ package com.arqsoft.spreadsheet.model;
 
 import com.arqsoft.spreadsheet.model.domain.*;
 
-public class SpreadSheetFactory {
-    public SpreadSheetFactory(){}
+public class SpreadsheetFactory {
+    public SpreadsheetFactory(){}
 
     public Content createContent(ContentSpec spec) {
         if (spec.getType() == CellType.TEXT) {
@@ -17,8 +17,8 @@ public class SpreadSheetFactory {
         return null;  // TODO: throw exception.
     }
 
-    public SpreadSheet createSpreadSheet() {
-        return new SpreadSheet();
+    public Spreadsheet createSpreadSheet() {
+        return new Spreadsheet();
     }
 
     public Coordinate createCoordinate(CoordinateSpec spec){
@@ -27,5 +27,13 @@ public class SpreadSheetFactory {
 
     public Cell createCell(Content content) {
         return new Cell(content);
+    }
+
+    public SpreadsheetLoader createSpreadSheetLoader() {
+        return new S2VSpreadsheetLoader();
+    }
+
+    public SpreadsheetSaver createSpreadSheetSaver() {
+        return new S2VSpreadsheetSaver();
     }
 }
