@@ -1,35 +1,21 @@
 package com.arqsoft.spreadsheet.client.text;
 
-import com.arqsoft.spreadsheet.client.SpreadsheetController;
-import com.arqsoft.spreadsheet.client.text.util.CoordinateChecker;
-import com.arqsoft.spreadsheet.client.text.util.NumericalContentChecker;
-import com.arqsoft.spreadsheet.client.text.util.TextContentChecker;
+import com.arqsoft.spreadsheet.client.AbstractClient;
+import com.arqsoft.spreadsheet.client.text.util.CommandParser;
+import com.arqsoft.spreadsheet.client.text.util.IllegalCommandException;
 import com.arqsoft.spreadsheet.model.ContentSpec;
 import com.arqsoft.spreadsheet.model.CoordinateSpec;
 
-public class Client {
+import java.util.Scanner;
 
-    private SpreadsheetController controller;
-    private TextContentChecker textContentChecker;
-    private NumericalContentChecker numericalContentChecker;
-    private CoordinateChecker coordinateChecker;
+public class Client extends AbstractClient {
 
-    public Client() {}
+    private final Scanner scanner;
+    private final CommandParser parser;
 
-    public void setController(SpreadsheetController controller) {
-        this.controller = controller;
-    }
-
-    public void setTextContentChecker(TextContentChecker textContentChecker) {
-        this.textContentChecker = textContentChecker;
-    }
-
-    public void setNumericalContentChecker(NumericalContentChecker numericalContentChecker) {
-        this.numericalContentChecker = numericalContentChecker;
-    }
-
-    public void setCoordinateChecker(CoordinateChecker coordinateChecker) {
-        this.coordinateChecker = coordinateChecker;
+    public Client() {
+        this.scanner = new Scanner(System.in);
+        this.parser = new CommandParser();
     }
 
     public void addCell(String coordinateInput, String contentInput) throws InvalidInputException {
@@ -48,23 +34,55 @@ public class Client {
         }
     }
 
-    public static void main(String[] args) {
-        try {
-            System.out.println("Start.");
-            SpreadsheetController controller = new SpreadsheetController();
-            controller.buildFrameWork();
-
-            Client client = new Client();
-            client.setController(controller);
-            client.setTextContentChecker(new TextContentChecker());
-            client.setNumericalContentChecker(new NumericalContentChecker());
-            client.setCoordinateChecker(new CoordinateChecker());
-            // TODO.
-            client.addCell("H 10", "10");
-            client.addCell("f 10", "'Hola'");
-            System.out.println("Done.");
-        } catch (Exception e) {
-            System.out.println("Error " + e.getMessage() + ".");
+    @Override
+    public void run() {
+        controller.buildFrameWork();
+        boolean end = false;
+        String command;
+        while (!end) {
+            System.out.println("Write command (a, s, l, h, q)");
+            command = this.scanner.nextLine();
+            end = this.processCommand(command);
+            // TODO: display spreadsheet.
         }
     }
+
+    private boolean processCommand(String commandInput) {
+        try {
+            Command command = parser.parseCommand(commandInput);
+            switch (command) {
+                case ADD_CELL:
+                    addCell();
+                case HELP:
+                    help();
+                case SAVE:
+                case LOAD:
+                    return false;
+                case QUIT:
+                    return true;
+            }
+        } catch (IllegalCommandException e) {
+            // TODO: handle exception.
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private void help() {
+        // TODO: print options.
+    }
+
+    @Override
+    public void addCell() {
+        try {
+            System.out.println("Introduce coordinate (<column> <row>)");
+            String coordinate = scanner.nextLine();
+            System.out.println("Introduce content");
+            String content = scanner.nextLine();
+            addCell(coordinate, content);
+        } catch (InvalidInputException e) {
+            System.out.println("Input is not valid: " + e.getMessage());
+        }
+    }
+
 }
