@@ -1,10 +1,12 @@
 package com.arqsoft.domain;
 
-public class Coordinate {
+import com.arqsoft.util.Spec;
+
+public class CoordinateSpec implements Spec {
     private int row;
     private String column;
 
-    public Coordinate(int row, String column) {
+    public CoordinateSpec(int row, String column) {
         this.row = row;
         this.column = column;
     }
@@ -15,10 +17,5 @@ public class Coordinate {
 
     public String getColumn() {
         return column;
-    }
-
-    @Override
-    public String toString() {
-        return column + row;
     }
 }

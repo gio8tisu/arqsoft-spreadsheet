@@ -13,6 +13,6 @@ public class Cell {
 
     @Override
     public String toString() {
-        return "Cell{" + content.evaluate() + '}';
+        return content.evaluate().toString();
     }
 }

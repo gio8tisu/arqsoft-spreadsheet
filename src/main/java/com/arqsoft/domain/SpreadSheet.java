@@ -10,6 +10,10 @@ public class SpreadSheet {
         this.cells = new HashMap<>();
     }
 
+    public Map<Coordinate, Cell> getCells() {
+        return cells;
+    }
+
     public void setCell(Coordinate coordinate, Cell cell) {
         cells.put(coordinate, cell);
     }

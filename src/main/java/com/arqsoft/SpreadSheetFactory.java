@@ -1,19 +1,23 @@
 package com.arqsoft;
 
 import com.arqsoft.domain.*;
-import com.arqsoft.util.ContentChecker;
+import com.arqsoft.util.CoordinateChecker;
+import com.arqsoft.util.InputChecker;
+import com.arqsoft.util.Spec;
 import com.arqsoft.util.TextContentChecker;
 
 public class SpreadSheetFactory {
-    private ContentChecker textContentChecker;
+    private InputChecker textContentChecker;
+    private CoordinateChecker coordinateChecker;
     public SpreadSheetFactory(){
         textContentChecker = new TextContentChecker();
+        coordinateChecker = new CoordinateChecker();
     }
 
-    public Content createContent(String spec) throws InvalidContentException {
+    public Content createContent(String spec) throws InvalidInputException {
         if (spec.startsWith("\"") | spec.startsWith("\'")) {
-            String correctedSpec = textContentChecker.checkInput(spec);
-            return new TextContent(correctedSpec);
+            ContentSpec correctedSpec = (ContentSpec) textContentChecker.checkInput(spec);
+            return new TextContent(correctedSpec.getContent());
         } else if (spec.startsWith("=")) {
             throw new UnsupportedOperationException("Cannot create formula content");
         } else {
@@ -22,4 +26,16 @@ public class SpreadSheetFactory {
         }
     }
 
+    public SpreadSheet createSpreadSheet() {
+        return new SpreadSheet();
+    }
+
+    public Coordinate createCoordinate(String spec) throws InvalidInputException {
+        CoordinateSpec correctedSpec = (CoordinateSpec) coordinateChecker.checkInput(spec);
+        return new Coordinate(correctedSpec.getRow(), correctedSpec.getColumn());
+    }
+
+    public Cell createCell(Content content) {
+        return new Cell(content);
+    }
 }
