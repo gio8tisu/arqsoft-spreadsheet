@@ -3,16 +3,19 @@ package com.arqsoft.spreadsheet.util;
 public class AlphabeticRadixConverter {
 
     public static String toAlphabeticRadix(int num){
-        char[] str = Integer.toString(num, 26).toCharArray();
-        for (int i = 0; i < str.length; i++) {
-            str[i] += str[i] > '9' ? 10 : 49;
+        StringBuilder builder = new StringBuilder();
+        while (num >= 0) {
+            builder.append((char) (num % 26 + 0x41));
+            num = num / 26 - 1;
         }
-        return new String(str);
+        return builder.toString();
     }
 
     public static int fromAlphabeticRadix(String a){
-        // TODO.
-        return 0;
+        int res = 0;
+        for (int i = 0; i < a.length(); i++) {
+            res = res * 26 + (int) a.charAt(i) - 0x40;
+        }
+        return res;
     }
-
 }
