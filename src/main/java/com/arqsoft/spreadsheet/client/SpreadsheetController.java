@@ -4,7 +4,7 @@ import com.arqsoft.spreadsheet.model.*;
 import com.arqsoft.spreadsheet.model.domain.*;
 
 public class SpreadsheetController {
-    private SpreadsheetFactory factory;
+    private final SpreadsheetFactory factory;
     private Spreadsheet spreadSheet;
     private SpreadsheetLoader spreadsheetLoader;
     private SpreadsheetSaver spreadsheetSaver;
@@ -31,10 +31,12 @@ public class SpreadsheetController {
         spreadsheetSaver.save();
     }
 
-    public void loadSpreadsheet() throws FilenameNotSetException {
-        if (spreadsheetLoader.getFilename() == null)
-            throw new FilenameNotSetException("Filename not associated");
-        this.spreadSheet = spreadsheetLoader.load();
+    public void saveSpreadsheetAs(String filename) {
+        spreadsheetSaver.saveAs(filename);
+    }
+
+    public void loadSpreadsheet(String filename) {
+        this.spreadSheet = spreadsheetLoader.load(filename);
     }
 
 }

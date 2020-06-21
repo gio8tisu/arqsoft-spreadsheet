@@ -14,7 +14,7 @@ public class SpreadsheetFactory {
             // Assume numerical content.
             return new NumericalContent(Float.parseFloat(spec.getContent()));
         }
-        return null;  // TODO: throw exception.
+        throw new UnsupportedOperationException("Unknown cell type");
     }
 
     public Spreadsheet createSpreadSheet() {

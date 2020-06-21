@@ -27,4 +27,10 @@ public class S2VSpreadsheetSaver implements SpreadsheetSaver {
         throw new UnsupportedOperationException("S2V save is not implemented yet.");
     }
 
+    @Override
+    public void saveAs(String filename) {
+        this.filename = filename;
+        this.save();
+    }
+
 }

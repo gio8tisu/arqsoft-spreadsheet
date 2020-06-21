@@ -18,6 +18,10 @@ public class CommandParser {
             case "s":
                 res = Command.SAVE;
                 break;
+            case "saveas":
+            case "sa":
+                res = Command.SAVE_AS;
+                break;
             case "quit":
             case "q":
                 res = Command.QUIT;
