@@ -1,12 +1,17 @@
 package com.arqsoft.spreadsheet.view.text;
 
+import com.arqsoft.spreadsheet.model.domain.Content;
 import com.arqsoft.spreadsheet.view.UICell;
 
 public class TextUICell implements UICell {
 
-    TextUICell() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private Content content;
+    
+    public TextUICell(Content content) {
+        this.content = content;
     }
-    
-    
+
+    public String getValue() {
+        return this.content.evaluate().toString();
+    }
 }

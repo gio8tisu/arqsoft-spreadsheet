@@ -1,5 +1,6 @@
 package com.arqsoft.spreadsheet.view.text;
 
+import com.arqsoft.spreadsheet.model.domain.Content;
 import com.arqsoft.spreadsheet.view.UICell;
 import com.arqsoft.spreadsheet.view.UIFactory;
 import com.arqsoft.spreadsheet.view.UISpreadsheet;
@@ -11,7 +12,7 @@ public class TextUIFactory extends UIFactory {
     }
 
     @Override
-    public UICell createUICell() {
-        return new TextUICell();
+    public UICell createUICell(Content content) {
+        return new TextUICell(content);
     }
 }

@@ -29,9 +29,20 @@ public class TextUIRenderer implements UIRenderer {
         for (int i=this.rowOffset; i <= this.rowMax; i++) {
             System.out.println();
             for (int j=this.columnOffset ;j <= this.columnMax; j++) {
-                
+                builder.delete(0, builder.length());
+                builder.append(i).append(",").append(j);
+                TextUICell cell = (TextUICell)this.spreadsheet.getCell(i, j);
+                if(cell != null) {
+                    builder.delete(0,builder.length());
+                    builder.append("[").append(cell.getValue()).append("]");
+                    System.out.print(builder.toString());
+                } else {
+                    System.out.print("[  ]");
+                }
             }
+            System.out.println();
         }
+        System.out.println("\n");
     }
-  
+ 
 }

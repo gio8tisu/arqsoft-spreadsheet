@@ -38,7 +38,7 @@ public class TextUISpreadsheet implements UISpreadsheet {
 
     @Override
     public void setFactory(UIFactory factory) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.uiFactory = factory;
     }
     
     private String convertColtoString(int col){
