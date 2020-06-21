@@ -9,7 +9,7 @@ public class TextContent implements Content {
 
     @Override
     public Value evaluate() {
-        return new Value<>(text);
+        return new Value<>(text.substring(1, text.length() - 1));
     }
 
 }

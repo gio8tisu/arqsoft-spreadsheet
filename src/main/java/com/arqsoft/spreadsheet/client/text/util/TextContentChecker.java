@@ -10,7 +10,7 @@ public class TextContentChecker implements InputChecker {
     public Spec checkInput(String input) throws InvalidInputException {
         if (input.startsWith("\"") & input.endsWith("\"") ||
                 input.startsWith("'") & input.endsWith("'"))
-            return new ContentSpec(input.substring(1, input.length() - 1), CellType.TEXT);
+            return new ContentSpec(input, CellType.TEXT);
         else throw new InvalidInputException("Quotes do not match.");
     }
 }
