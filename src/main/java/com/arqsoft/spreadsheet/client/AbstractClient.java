@@ -7,7 +7,7 @@ import com.arqsoft.spreadsheet.client.text.util.NumericalContentChecker;
 import com.arqsoft.spreadsheet.client.text.util.TextContentChecker;
 import com.arqsoft.spreadsheet.view.UIFactory;
 import com.arqsoft.spreadsheet.view.UIRenderer;
-import com.arqsoft.spreadsheet.view.UISpreadSheet;
+import com.arqsoft.spreadsheet.view.UISpreadsheet;
 
 import java.util.Scanner;
 
@@ -17,7 +17,7 @@ public abstract class AbstractClient {
     protected NumericalContentChecker numericalContentChecker;
     protected CoordinateChecker coordinateChecker;
     protected UIFactory factory;
-    protected UISpreadSheet spreadSheet;
+    protected UISpreadsheet spreadSheet;
     protected UIRenderer renderer;
 
     public static void main(String[] args) {

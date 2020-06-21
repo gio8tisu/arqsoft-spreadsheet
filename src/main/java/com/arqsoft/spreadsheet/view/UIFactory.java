@@ -12,7 +12,7 @@ public abstract class UIFactory {
         }
     }
 
-    public abstract UISpreadSheet createUISpreadSheet();
+    public abstract UISpreadsheet createUISpreadSheet();
     public abstract UICell createUICell();
 
 }
