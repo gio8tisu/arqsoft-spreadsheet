@@ -17,6 +17,8 @@ public class SpreadsheetController {
         this.spreadSheet = this.factory.createSpreadSheet();
         this.spreadsheetLoader = this.factory.createSpreadSheetLoader();
         this.spreadsheetSaver = this.factory.createSpreadSheetSaver();
+        this.spreadsheetSaver.setFactory(this.factory);
+        this.spreadsheetSaver.setSpreadsheet(this.spreadSheet);
     }
 
     public void addCell(CoordinateSpec coordinateSpec, ContentSpec contentSpec) {

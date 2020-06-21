@@ -12,4 +12,8 @@ public class TextContent implements Content {
         return new Value<>(text.substring(1, text.length() - 1));
     }
 
+    @Override
+    public String toString() {
+        return text;
+    }
 }
