@@ -1,39 +1,43 @@
 package com.arqsoft.spreadsheet.client;
 
-import com.arqsoft.spreadsheet.client.SpreadsheetController;
 import com.arqsoft.spreadsheet.client.text.Client;
 import com.arqsoft.spreadsheet.client.text.util.CoordinateChecker;
 import com.arqsoft.spreadsheet.client.text.util.NumericalContentChecker;
 import com.arqsoft.spreadsheet.client.text.util.TextContentChecker;
+import com.arqsoft.spreadsheet.model.SpreadsheetFactory;
 import com.arqsoft.spreadsheet.view.UIFactory;
 import com.arqsoft.spreadsheet.view.UIRenderer;
 import com.arqsoft.spreadsheet.view.UISpreadsheet;
-
-import java.util.Scanner;
 
 public abstract class AbstractClient {
     protected SpreadsheetController controller;
     protected TextContentChecker textContentChecker;
     protected NumericalContentChecker numericalContentChecker;
     protected CoordinateChecker coordinateChecker;
-    protected UIFactory factory;
-    protected UISpreadsheet spreadSheet;
     protected UIRenderer renderer;
+    protected UISpreadsheet spreadsheet;
 
     public static void main(String[] args) {
         try {
             System.out.println("Starting text client.");
+            SpreadsheetFactory factory = new SpreadsheetFactory();
+            UIFactory uiFactory = UIFactory.getInstance("text");
+            UISpreadsheet spreadsheet = uiFactory.createUISpreadSheet();
+            spreadsheet.setFactory(factory);
             SpreadsheetController controller = new SpreadsheetController();
+            controller.setUIFactory(uiFactory);
+            controller.setFactory(factory);
+            controller.setUISpreadsheet(spreadsheet);
 
-            // TODO: main menu, ...
-            UIFactory factory = UIFactory.getInstance("text");
             Client client = new Client();
+            client.setRenderer(uiFactory.createUIRenderer());
             client.setController(controller);
-            client.setFactory(factory);
+            client.setSpreadsheet(spreadsheet);
             client.setTextContentChecker(new TextContentChecker());
             client.setNumericalContentChecker(new NumericalContentChecker());
             client.setCoordinateChecker(new CoordinateChecker());
 
+            controller.buildFrameWork();
             client.run();
             System.out.println("Done.");
         } catch (Exception e) {
@@ -41,12 +45,16 @@ public abstract class AbstractClient {
         }
     }
 
-    public void setController(SpreadsheetController controller) {
-        this.controller = controller;
+    public void setRenderer(UIRenderer uiRenderer) {
+        this.renderer = uiRenderer;
     }
 
-    public void setFactory(UIFactory factory) {
-        this.factory = factory;
+    public void setSpreadsheet(UISpreadsheet spreadsheet) {
+        this.spreadsheet = spreadsheet;
+    }
+
+    public void setController(SpreadsheetController controller) {
+        this.controller = controller;
     }
 
     public void setTextContentChecker(TextContentChecker textContentChecker) {

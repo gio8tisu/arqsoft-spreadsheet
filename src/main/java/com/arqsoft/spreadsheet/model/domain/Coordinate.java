@@ -1,5 +1,7 @@
 package com.arqsoft.spreadsheet.model.domain;
 
+import com.arqsoft.spreadsheet.util.AlphabeticRadixConverter;
+
 public class Coordinate {
     private int row;
     private String column;
@@ -15,6 +17,10 @@ public class Coordinate {
 
     public String getColumn() {
         return column;
+    }
+
+    public int getColumnAsNum() {
+        return AlphabeticRadixConverter.fromAlphabeticRadix(column);
     }
 
     @Override

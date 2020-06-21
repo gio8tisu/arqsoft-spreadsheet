@@ -41,14 +41,13 @@ public class Client extends AbstractClient {
 
     @Override
     public void run() {
-        controller.buildFrameWork();
         boolean end = false;
         String command;
         while (!end) {
             System.out.println("Write command (a, s, sa, l, h, q)");
             command = this.scanner.nextLine();
             end = this.processCommand(command);
-            this.renderer.render();
+            this.renderer.render(this.spreadsheet);
         }
     }
 

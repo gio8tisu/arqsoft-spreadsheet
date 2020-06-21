@@ -6,32 +6,24 @@
 package com.arqsoft.spreadsheet.view.text;
 
 import com.arqsoft.spreadsheet.view.UIRenderer;
+import com.arqsoft.spreadsheet.view.UISpreadsheet;
 
-/**
- *
- * @author raquel
- */
 public class TextUIRenderer implements UIRenderer {
 
-    private TextUISpreadsheet spreadsheet;
     private int rowOffset = 0;
     private int columnOffset = 0;
     private int rowMax = 5;
     private int columnMax = 5;
 
-    public void setSpreadsheet(TextUISpreadsheet spreadsheet) {
-        this.spreadsheet = spreadsheet;
-    }
-    
     @Override
-    public void render() {
+    public void render(UISpreadsheet spreadsheet) {
         StringBuilder builder = new StringBuilder();
         for (int i=this.rowOffset; i <= this.rowMax; i++) {
             System.out.println();
             for (int j=this.columnOffset ;j <= this.columnMax; j++) {
                 builder.delete(0, builder.length());
                 builder.append(i).append(",").append(j);
-                TextUICell cell = (TextUICell)this.spreadsheet.getCell(i, j);
+                TextUICell cell = (TextUICell) spreadsheet.getCell(i, j);
                 if(cell != null) {
                     builder.delete(0,builder.length());
                     builder.append("[").append(cell.getValue()).append("]");
@@ -44,5 +36,20 @@ public class TextUIRenderer implements UIRenderer {
         }
         System.out.println("\n");
     }
- 
+
+    public void setRowOffset(int rowOffset) {
+        this.rowOffset = rowOffset;
+    }
+
+    public void setColumnOffset(int columnOffset) {
+        this.columnOffset = columnOffset;
+    }
+
+    public void setRowMax(int rowMax) {
+        this.rowMax = rowMax;
+    }
+
+    public void setColumnMax(int columnMax) {
+        this.columnMax = columnMax;
+    }
 }

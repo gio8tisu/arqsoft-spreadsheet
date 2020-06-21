@@ -10,4 +10,9 @@ public class AlphabeticRadixConverter {
         return new String(str);
     }
 
+    public static int fromAlphabeticRadix(String a){
+        // TODO.
+        return 0;
+    }
+
 }
