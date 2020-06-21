@@ -19,26 +19,6 @@ public class Client extends AbstractClient {
         this.parser = new CommandParser();
     }
 
-    public void addCell(String coordinateInput, String contentInput) throws InvalidInputException {
-        // Create coordinate spec.
-        CoordinateSpec coordinateSpec = (CoordinateSpec) coordinateChecker.checkInput(coordinateInput);
-        // Create content spec.
-        if (contentInput.startsWith("\"") | contentInput.startsWith("'")) {
-            ContentSpec contentSpec = (ContentSpec) textContentChecker.checkInput(contentInput);
-            controller.addCell(coordinateSpec, contentSpec);
-        } else if (contentInput.startsWith("=")) {
-            throw new UnsupportedOperationException("Cannot create formula content");
-        } else {
-            // Assume numerical content.
-            try {
-                ContentSpec contentSpec = (ContentSpec) numericalContentChecker.checkInput(contentInput);
-                controller.addCell(coordinateSpec, contentSpec);
-            } catch (NumberFormatException e) {
-                throw new InvalidInputException("Invalid number (use quotes for text content)");
-            }
-        }
-    }
-
     @Override
     public void run() {
         controller.buildFrameWork();
@@ -119,12 +99,32 @@ public class Client extends AbstractClient {
         try {
             System.out.println("Introduce coordinate (<column> <row>)");
             String coordinate = scanner.nextLine();
+            // Create coordinate spec.
+            CoordinateSpec coordinateSpec = (CoordinateSpec) coordinateChecker.checkInput(coordinate);
             System.out.println("Introduce content");
             String content = scanner.nextLine();
-            addCell(coordinate, content);
+            addCell(coordinateSpec, content);
         } catch (InvalidInputException e) {
             System.out.println("Input is not valid: " + e.getMessage());
             addCell();
+        }
+    }
+
+    public void addCell(CoordinateSpec coordinateSpec, String contentInput) throws InvalidInputException {
+        // Create content spec.
+        if (contentInput.startsWith("\"") | contentInput.startsWith("'")) {
+            ContentSpec contentSpec = (ContentSpec) textContentChecker.checkInput(contentInput);
+            controller.addCell(coordinateSpec, contentSpec);
+        } else if (contentInput.startsWith("=")) {
+            throw new UnsupportedOperationException("Cannot create formula content");
+        } else {
+            // Assume numerical content.
+            try {
+                ContentSpec contentSpec = (ContentSpec) numericalContentChecker.checkInput(contentInput);
+                controller.addCell(coordinateSpec, contentSpec);
+            } catch (NumberFormatException e) {
+                throw new InvalidInputException("Invalid number (use quotes for text content)");
+            }
         }
     }
 
