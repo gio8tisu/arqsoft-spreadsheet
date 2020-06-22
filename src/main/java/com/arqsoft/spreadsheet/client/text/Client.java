@@ -29,6 +29,7 @@ public class Client extends AbstractClient {
             System.out.println("Write command (a, s, sa, l, h, q)");
             command = this.scanner.nextLine();
             end = this.processCommand(command);
+            renderer.render(this.spreadsheet);
         }
     }
 
