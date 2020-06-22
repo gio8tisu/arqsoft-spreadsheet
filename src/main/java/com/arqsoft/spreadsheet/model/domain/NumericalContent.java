@@ -12,4 +12,8 @@ public class NumericalContent implements Content {
         return new Value<>(number);
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(number);
+    }
 }

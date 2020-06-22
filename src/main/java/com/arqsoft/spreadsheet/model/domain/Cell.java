@@ -11,8 +11,8 @@ public class Cell {
         return content.evaluate();
     }
 
-    @Override
-    public String toString() {
-        return content.evaluate().toString();
+    public Content getContent() {
+        return content;
     }
+
 }

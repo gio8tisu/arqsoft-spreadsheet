@@ -7,6 +7,7 @@ import com.arqsoft.spreadsheet.client.text.util.IllegalCommandException;
 import com.arqsoft.spreadsheet.model.ContentSpec;
 import com.arqsoft.spreadsheet.model.CoordinateSpec;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Client extends AbstractClient {
@@ -19,35 +20,15 @@ public class Client extends AbstractClient {
         this.parser = new CommandParser();
     }
 
-    public void addCell(String coordinateInput, String contentInput) throws InvalidInputException {
-        // Create coordinate spec.
-        CoordinateSpec coordinateSpec = (CoordinateSpec) coordinateChecker.checkInput(coordinateInput);
-        // Create content spec.
-        if (contentInput.startsWith("\"") | contentInput.startsWith("'")) {
-            ContentSpec contentSpec = (ContentSpec) textContentChecker.checkInput(contentInput);
-            controller.addCell(coordinateSpec, contentSpec);
-        } else if (contentInput.startsWith("=")) {
-            throw new UnsupportedOperationException("Cannot create formula content");
-        } else {
-            // Assume numerical content.
-            try {
-                ContentSpec contentSpec = (ContentSpec) numericalContentChecker.checkInput(contentInput);
-                controller.addCell(coordinateSpec, contentSpec);
-            } catch (NumberFormatException e) {
-                throw new InvalidInputException("Invalid number (use quotes for text content)");
-            }
-        }
-    }
-
     @Override
     public void run() {
+        controller.buildFrameWork(this.textContentChecker, this.numericalContentChecker);
         boolean end = false;
         String command;
         while (!end) {
             System.out.println("Write command (a, s, sa, l, h, q)");
             command = this.scanner.nextLine();
             end = this.processCommand(command);
-            this.renderer.render(this.spreadsheet);
         }
     }
 
@@ -101,7 +82,11 @@ public class Client extends AbstractClient {
     private void load() {
         System.out.print("Enter filename: ");
         String filename = this.scanner.nextLine();
-        controller.loadSpreadsheet(filename);
+        try {
+            controller.loadSpreadsheet(filename);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void help() {
@@ -118,12 +103,32 @@ public class Client extends AbstractClient {
         try {
             System.out.println("Introduce coordinate (<column> <row>)");
             String coordinate = scanner.nextLine();
+            // Create coordinate spec.
+            CoordinateSpec coordinateSpec = (CoordinateSpec) coordinateChecker.checkInput(coordinate);
             System.out.println("Introduce content");
             String content = scanner.nextLine();
-            addCell(coordinate, content);
+            addCell(coordinateSpec, content);
         } catch (InvalidInputException e) {
             System.out.println("Input is not valid: " + e.getMessage());
             addCell();
+        }
+    }
+
+    public void addCell(CoordinateSpec coordinateSpec, String contentInput) throws InvalidInputException {
+        // Create content spec.
+        if (contentInput.startsWith("\"") | contentInput.startsWith("'")) {
+            ContentSpec contentSpec = (ContentSpec) textContentChecker.checkInput(contentInput);
+            controller.addCell(coordinateSpec, contentSpec);
+        } else if (contentInput.startsWith("=")) {
+            throw new UnsupportedOperationException("Cannot create formula content");
+        } else {
+            // Assume numerical content.
+            try {
+                ContentSpec contentSpec = (ContentSpec) numericalContentChecker.checkInput(contentInput);
+                controller.addCell(coordinateSpec, contentSpec);
+            } catch (NumberFormatException e) {
+                throw new InvalidInputException("Invalid number (use quotes for text content)");
+            }
         }
     }
 

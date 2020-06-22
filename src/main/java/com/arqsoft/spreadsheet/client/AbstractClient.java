@@ -1,10 +1,10 @@
 package com.arqsoft.spreadsheet.client;
 
 import com.arqsoft.spreadsheet.client.text.Client;
-import com.arqsoft.spreadsheet.client.text.util.CoordinateChecker;
-import com.arqsoft.spreadsheet.client.text.util.NumericalContentChecker;
-import com.arqsoft.spreadsheet.client.text.util.TextContentChecker;
 import com.arqsoft.spreadsheet.model.SpreadsheetFactory;
+import com.arqsoft.spreadsheet.util.CoordinateChecker;
+import com.arqsoft.spreadsheet.util.NumericalContentChecker;
+import com.arqsoft.spreadsheet.util.TextContentChecker;
 import com.arqsoft.spreadsheet.view.UIFactory;
 import com.arqsoft.spreadsheet.view.UIRenderer;
 import com.arqsoft.spreadsheet.view.UISpreadsheet;
@@ -37,7 +37,7 @@ public abstract class AbstractClient {
             client.setNumericalContentChecker(new NumericalContentChecker());
             client.setCoordinateChecker(new CoordinateChecker());
 
-            controller.buildFrameWork();
+            controller.buildFrameWork(client.textContentChecker, client.numericalContentChecker);
             client.run();
             System.out.println("Done.");
         } catch (Exception e) {
