@@ -22,7 +22,7 @@ public class TextUISpreadsheet implements UISpreadsheet {
     
     @Override
     public UICell getCell(int r, int col) {
-        String c = this.convertColToString(col);
+        String c = AlphabeticRadixConverter.toAlphabeticRadix(col);
         CoordinateSpec spec = new CoordinateSpec(r,c);
         Coordinate coordinate = spreadsheetFactory.createCoordinate(spec);
         return this.cells.get(coordinate);
@@ -30,7 +30,7 @@ public class TextUISpreadsheet implements UISpreadsheet {
 
     @Override
     public void setCell(UICell cell, int r, int col) {
-        String c = this.convertColToString(col);
+        String c = AlphabeticRadixConverter.toAlphabeticRadix(col);
         CoordinateSpec spec = new CoordinateSpec(r,c);
         Coordinate coordinate = spreadsheetFactory.createCoordinate(spec);
         this.cells.put(coordinate, cell);
@@ -44,10 +44,6 @@ public class TextUISpreadsheet implements UISpreadsheet {
     @Override
     public void setFactory(SpreadsheetFactory factory) {
         this.spreadsheetFactory = factory;
-    }
-
-    private String convertColToString(int col){
-        return AlphabeticRadixConverter.toAlphabeticRadix(col);
     }
 
 }
