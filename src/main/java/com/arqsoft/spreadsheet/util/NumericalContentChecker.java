@@ -1,4 +1,4 @@
-package com.arqsoft.spreadsheet.client.text.util;
+package com.arqsoft.spreadsheet.util;
 
 import com.arqsoft.spreadsheet.model.domain.CellType;
 import com.arqsoft.spreadsheet.model.ContentSpec;
