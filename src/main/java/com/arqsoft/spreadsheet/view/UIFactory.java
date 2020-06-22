@@ -1,5 +1,6 @@
 package com.arqsoft.spreadsheet.view;
 
+import com.arqsoft.spreadsheet.model.domain.Content;
 import com.arqsoft.spreadsheet.view.text.TextUIFactory;
 
 public abstract class UIFactory {
@@ -12,7 +13,8 @@ public abstract class UIFactory {
         }
     }
 
-    public abstract UISpreadSheet createUISpreadSheet();
-    public abstract UICell createUICell();
+    public abstract UISpreadsheet createUISpreadSheet();
+    public abstract UICell createUICell(Content content);
+    public abstract UIRenderer createUIRenderer();
 
 }
