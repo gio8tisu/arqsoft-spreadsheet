@@ -1,15 +1,12 @@
 package com.arqsoft.spreadsheet.client;
 
-import com.arqsoft.spreadsheet.client.SpreadsheetController;
 import com.arqsoft.spreadsheet.client.text.Client;
-import com.arqsoft.spreadsheet.client.text.util.CoordinateChecker;
-import com.arqsoft.spreadsheet.client.text.util.NumericalContentChecker;
-import com.arqsoft.spreadsheet.client.text.util.TextContentChecker;
+import com.arqsoft.spreadsheet.util.CoordinateChecker;
+import com.arqsoft.spreadsheet.util.NumericalContentChecker;
+import com.arqsoft.spreadsheet.util.TextContentChecker;
 import com.arqsoft.spreadsheet.view.UIFactory;
 import com.arqsoft.spreadsheet.view.UIRenderer;
 import com.arqsoft.spreadsheet.view.UISpreadSheet;
-
-import java.util.Scanner;
 
 public abstract class AbstractClient {
     protected SpreadsheetController controller;
@@ -25,7 +22,6 @@ public abstract class AbstractClient {
             System.out.println("Starting text client.");
             SpreadsheetController controller = new SpreadsheetController();
 
-            // TODO: main menu, ...
             UIFactory factory = UIFactory.getInstance("text");
             Client client = new Client();
             client.setController(controller);

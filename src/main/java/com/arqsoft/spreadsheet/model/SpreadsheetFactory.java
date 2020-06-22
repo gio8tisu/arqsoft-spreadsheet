@@ -1,6 +1,8 @@
 package com.arqsoft.spreadsheet.model;
 
 import com.arqsoft.spreadsheet.model.domain.*;
+import com.arqsoft.spreadsheet.util.NumericalContentChecker;
+import com.arqsoft.spreadsheet.util.TextContentChecker;
 
 public class SpreadsheetFactory {
     public SpreadsheetFactory(){}
@@ -29,8 +31,9 @@ public class SpreadsheetFactory {
         return new Cell(content);
     }
 
-    public SpreadsheetLoader createSpreadSheetLoader() {
-        return new S2VSpreadsheetLoader();
+    public SpreadsheetLoader createSpreadSheetLoader(TextContentChecker textContentChecker,
+                                                     NumericalContentChecker numericalContentChecker) {
+        return new S2VSpreadsheetLoader(this, textContentChecker, numericalContentChecker);
     }
 
     public SpreadsheetSaver createSpreadSheetSaver() {

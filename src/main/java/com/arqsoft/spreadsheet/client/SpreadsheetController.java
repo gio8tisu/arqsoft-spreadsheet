@@ -2,6 +2,10 @@ package com.arqsoft.spreadsheet.client;
 
 import com.arqsoft.spreadsheet.model.*;
 import com.arqsoft.spreadsheet.model.domain.*;
+import com.arqsoft.spreadsheet.util.NumericalContentChecker;
+import com.arqsoft.spreadsheet.util.TextContentChecker;
+
+import java.io.IOException;
 
 public class SpreadsheetController {
     private final SpreadsheetFactory factory;
@@ -13,9 +17,11 @@ public class SpreadsheetController {
         this.factory = new SpreadsheetFactory();
     }
 
-    public void buildFrameWork() {
+    public void buildFrameWork(TextContentChecker textContentChecker,
+                               NumericalContentChecker numericalContentChecker) {
         this.spreadSheet = this.factory.createSpreadSheet();
-        this.spreadsheetLoader = this.factory.createSpreadSheetLoader();
+        this.spreadsheetLoader = this.factory.createSpreadSheetLoader(
+                textContentChecker, numericalContentChecker);
         this.spreadsheetSaver = this.factory.createSpreadSheetSaver();
     }
 
@@ -35,7 +41,7 @@ public class SpreadsheetController {
         spreadsheetSaver.saveAs(filename);
     }
 
-    public void loadSpreadsheet(String filename) {
+    public void loadSpreadsheet(String filename) throws IOException {
         this.spreadSheet = spreadsheetLoader.load(filename);
     }
 

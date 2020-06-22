@@ -7,6 +7,7 @@ import com.arqsoft.spreadsheet.client.text.util.IllegalCommandException;
 import com.arqsoft.spreadsheet.model.ContentSpec;
 import com.arqsoft.spreadsheet.model.CoordinateSpec;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Client extends AbstractClient {
@@ -41,14 +42,13 @@ public class Client extends AbstractClient {
 
     @Override
     public void run() {
-        controller.buildFrameWork();
+        controller.buildFrameWork(this.textContentChecker, this.numericalContentChecker);
         boolean end = false;
         String command;
         while (!end) {
             System.out.println("Write command (a, s, sa, l, h, q)");
             command = this.scanner.nextLine();
             end = this.processCommand(command);
-            // TODO: display spreadsheet.
         }
     }
 
@@ -102,7 +102,11 @@ public class Client extends AbstractClient {
     private void load() {
         System.out.print("Enter filename: ");
         String filename = this.scanner.nextLine();
-        controller.loadSpreadsheet(filename);
+        try {
+            controller.loadSpreadsheet(filename);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void help() {
