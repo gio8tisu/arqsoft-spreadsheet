@@ -7,10 +7,7 @@ package edu.upc.etsetb.arqsoft.miniexceljc.factories.impl;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.functions.FunctionsRegister;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.BadArgumentException;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.ExpressionComponent;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.Operand;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.Operator;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.PostFixGeneratorImpl;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.SyntaxCheckerImpl;
@@ -27,12 +24,12 @@ public class DefaultFactory extends SpreadsheetFactory {
             throw new UnknownTokenTypeException("The object passed as argument, whose class is \'"
                     + tokenType.getClass().getName() + "\' is an unknown token type");
         }
-        return (Token) TokenImpl.getInstance((TokenType) tokenType, tokenText);
+        return TokenImpl.getInstance(tokenType, tokenText);
     }
 
     @Override
     public Tokenizer createTokenizer() {
-        return (Tokenizer) TokenizerImpl.getInstance();
+        return TokenizerImpl.getInstance();
     }
 
     @Override
@@ -47,7 +44,17 @@ public class DefaultFactory extends SpreadsheetFactory {
 
     @Override
     public Operator createOperator(String opText) throws BadArgumentException {
-        throw new UnsupportedOperationException("createOperator() not supported yet.");
+        switch (opText) {
+            case "sum":
+                return new SumOperator();
+            case "subs":
+                return new SubsOperator();
+            case "mult":
+                return new MultOperator();
+            case "div":
+                return new DivOperator();
+        }
+        throw new BadArgumentException("Unknown operator.");
     }
 
     @Override

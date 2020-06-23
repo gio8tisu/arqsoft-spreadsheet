@@ -1,10 +1,11 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.model.domain;
 
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.Operand;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.AlphabeticRadixConverter;
 
 import java.util.Objects;
 
-public class Coordinate {
+public class Coordinate implements Operand {
     private int row;
     private String column;
 

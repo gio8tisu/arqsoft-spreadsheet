@@ -5,6 +5,7 @@
  */
 package edu.upc.etsetb.arqsoft.miniexceljc.model.domain.functions;
 
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Value;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.Operand;
 
 /**
@@ -21,4 +22,5 @@ public interface Function extends Operand {
     public void addArgument(Operand op) ;
 
     public String getName() ;
+
 }

@@ -5,6 +5,8 @@
  */
 package edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands;
 
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Value;
+
 /**
  * You will have to create the class implements this interface; the list of 
  * methods below incllude all the methods required 
@@ -43,5 +45,6 @@ public interface Operator extends ExpressionComponent{
      * @return true if the operator is the division (/) operator, false otherwise
      */    
     public boolean isDiv() ;
-    
+
+    public Value operate(Operand op1, Operand op2);
 }

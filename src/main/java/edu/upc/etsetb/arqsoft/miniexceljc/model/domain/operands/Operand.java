@@ -5,6 +5,8 @@
  */
 package edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands;
 
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Value;
+
 /**
  * Empty interface for grouping all the classes whose objects may be an 
  * operand (a number, a cell coordinate, a function, etc), under the same umbrella; 
@@ -14,5 +16,5 @@ package edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands;
  * @author Juan Carlos Cruellas
  */
 public interface Operand extends ExpressionComponent{
-    
+    Value getValue();
 }
