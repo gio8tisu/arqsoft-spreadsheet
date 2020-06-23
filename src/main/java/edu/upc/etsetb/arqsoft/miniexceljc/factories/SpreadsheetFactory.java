@@ -6,12 +6,15 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.factories;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.impl.DefaultFactory;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.*;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.functions.FunctionsRegister;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.BadArgumentException;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.ExpressionComponent;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.Operand;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.Operator;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.*;
+import edu.upc.etsetb.arqsoft.miniexceljc.util.*;
 
 import java.util.List;
 
@@ -199,4 +202,37 @@ public abstract class SpreadsheetFactory {
      * @return the expression object 
      */
     public abstract Operand createExpression(List<ExpressionComponent> expr)  ;
+
+    public Content createContent(ContentSpec spec) {
+        if (spec.getType() == CellType.TEXT) {
+            return new TextContent(spec.getContent());
+        } else if (spec.getType() == CellType.FORMULA) {
+            throw new UnsupportedOperationException("Cannot create formula content");
+        } else if (spec.getType() == CellType.NUMERICAL) {
+            // Assume numerical content.
+            return new NumericalContent(Float.parseFloat(spec.getContent()));
+        }
+        throw new UnsupportedOperationException("Unknown cell type");
+    }
+
+    public Spreadsheet createSpreadSheet() {
+        return new Spreadsheet();
+    }
+
+    public Coordinate createCoordinate(CoordinateSpec spec){
+        return new Coordinate(spec.getRow(), spec.getColumn());
+    }
+
+    public Cell createCell(Content content) {
+        return new Cell(content);
+    }
+
+    public SpreadsheetLoader createSpreadSheetLoader(TextContentChecker textContentChecker,
+                                                     NumericalContentChecker numericalContentChecker) {
+        return new S2VSpreadsheetLoader(this, textContentChecker, numericalContentChecker);
+    }
+
+    public SpreadsheetSaver createSpreadSheetSaver() {
+        return new S2VSpreadsheetSaver();
+    }
 }

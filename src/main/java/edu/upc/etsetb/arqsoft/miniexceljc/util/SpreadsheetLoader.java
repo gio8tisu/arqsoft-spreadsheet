@@ -1,4 +1,4 @@
-package edu.upc.etsetb.arqsoft.miniexceljc.model;
+package edu.upc.etsetb.arqsoft.miniexceljc.util;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Spreadsheet;
 

@@ -1,7 +1,7 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.client;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.client.text.Client;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.SpreadsheetFactory;
+import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.CoordinateChecker;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.NumericalContentChecker;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.TextContentChecker;
@@ -20,7 +20,7 @@ public abstract class AbstractClient {
     public static void main(String[] args) {
         try {
             System.out.println("Starting text client.");
-            SpreadsheetFactory factory = new SpreadsheetFactory();
+            SpreadsheetFactory factory = SpreadsheetFactory.getInstance("DEFAULT");
             UIFactory uiFactory = UIFactory.getInstance("text");
             UISpreadsheet spreadsheet = uiFactory.createUISpreadSheet();
             spreadsheet.setFactory(factory);

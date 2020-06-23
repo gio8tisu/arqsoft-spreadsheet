@@ -1,8 +1,8 @@
-package edu.upc.etsetb.arqsoft.miniexceljc.model;
+package edu.upc.etsetb.arqsoft.miniexceljc.util;
 
+import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Cell;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Coordinate;
-import edu.upc.etsetb.arqsoft.miniexceljc.util.AlphabeticRadixConverter;
 
 import java.io.File;
 import java.io.FileWriter;

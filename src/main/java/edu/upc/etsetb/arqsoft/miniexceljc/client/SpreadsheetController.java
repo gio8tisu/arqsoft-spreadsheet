@@ -1,11 +1,14 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.client;
 
+import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Cell;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Content;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Coordinate;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Spreadsheet;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.NumericalContentChecker;
+import edu.upc.etsetb.arqsoft.miniexceljc.util.SpreadsheetLoader;
+import edu.upc.etsetb.arqsoft.miniexceljc.util.SpreadsheetSaver;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.TextContentChecker;
 import edu.upc.etsetb.arqsoft.miniexceljc.view.UIFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.view.UISpreadsheet;
