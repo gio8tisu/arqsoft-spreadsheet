@@ -23,6 +23,9 @@ public class Client extends AbstractClient {
     @Override
     public void run() {
         controller.buildFrameWork(this.textContentChecker, this.numericalContentChecker);
+        // First, display spreadsheet and help message.
+        renderer.render(this.spreadsheet);
+        help();
         boolean end = false;
         String command;
         while (!end) {
@@ -75,13 +78,13 @@ public class Client extends AbstractClient {
     }
 
     private void saveAs() {
-        System.out.print("Enter filename: ");
+        System.out.println("Enter filename: ");
         String filename = this.scanner.nextLine();
         controller.saveSpreadsheetAs(filename);
     }
 
     private void load() {
-        System.out.print("Enter filename: ");
+        System.out.println("Enter filename: ");
         String filename = this.scanner.nextLine();
         try {
             controller.loadSpreadsheet(filename);
