@@ -101,36 +101,47 @@ public class Client extends AbstractClient {
 
     @Override
     public void addCell() {
+        CoordinateSpec coordinateSpec = getCoordinateFromUser();
+        ContentSpec contentSpec = getCellContentFromUser();
+        addCell(coordinateSpec, contentSpec);
+    }
+
+    private void addCell(CoordinateSpec coordinateSpec, ContentSpec contentSpec) {
         try {
-            System.out.println("Introduce coordinate (<column> <row>)");
-            String coordinate = scanner.nextLine();
-            // Create coordinate spec.
-            CoordinateSpec coordinateSpec = (CoordinateSpec) coordinateChecker.checkInput(coordinate);
-            System.out.println("Introduce content");
-            String content = scanner.nextLine();
-            addCell(coordinateSpec, content);
-        } catch (InvalidInputException e) {
-            System.out.println("Input is not valid: " + e.getMessage());
-            addCell();
+            controller.addCell(coordinateSpec, contentSpec);
+        } catch (NumberFormatException e) {
+            System.out.println("Input is not valid: Invalid number (use quotes for text content)");
+            contentSpec = getCellContentFromUser();
+            addCell(coordinateSpec, contentSpec);
         }
     }
 
-    public void addCell(CoordinateSpec coordinateSpec, String contentInput) throws InvalidInputException {
-        // Create content spec.
-        if (contentInput.startsWith("\"") | contentInput.startsWith("'")) {
-            ContentSpec contentSpec = (ContentSpec) textContentChecker.checkInput(contentInput);
-            controller.addCell(coordinateSpec, contentSpec);
-        } else if (contentInput.startsWith("=")) {
-            throw new UnsupportedOperationException("Cannot create formula content");
-        } else {
-            // Assume numerical content.
-            try {
-                ContentSpec contentSpec = (ContentSpec) numericalContentChecker.checkInput(contentInput);
-                controller.addCell(coordinateSpec, contentSpec);
-            } catch (NumberFormatException e) {
-                throw new InvalidInputException("Invalid number (use quotes for text content)");
-            }
+    private CoordinateSpec getCoordinateFromUser() {
+        System.out.println("Introduce coordinate (<column> <row>)");
+        String coordinate = scanner.nextLine();
+        try {
+            return (CoordinateSpec) coordinateChecker.checkInput(coordinate);
+        } catch (InvalidInputException e) {
+            System.out.println("Input is not valid: " + e.getMessage());
+            return getCoordinateFromUser();
         }
+    }
+
+    private ContentSpec getCellContentFromUser() {
+        System.out.println("Introduce content");
+        String content = scanner.nextLine();
+        try {
+            if (content.startsWith("\"") | content.startsWith("'")) {
+                return  (ContentSpec) textContentChecker.checkInput(content);
+            } else if (content.startsWith("=")) {
+                throw new UnsupportedOperationException("Cannot create formula content");
+            } else {  // Assume numerical content.
+                return (ContentSpec) numericalContentChecker.checkInput(content);
+            }
+        } catch (InvalidInputException e) {
+            System.out.println("Input is not valid: " + e.getMessage());
+        }
+        return getCellContentFromUser();
     }
 
 }
