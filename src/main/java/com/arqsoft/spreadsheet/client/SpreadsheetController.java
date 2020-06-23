@@ -4,15 +4,15 @@ import com.arqsoft.spreadsheet.model.*;
 import com.arqsoft.spreadsheet.model.domain.*;
 import com.arqsoft.spreadsheet.util.NumericalContentChecker;
 import com.arqsoft.spreadsheet.util.TextContentChecker;
-import com.arqsoft.spreadsheet.view.UICell;
 import com.arqsoft.spreadsheet.view.UIFactory;
 import com.arqsoft.spreadsheet.view.UISpreadsheet;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class SpreadsheetController {
     private SpreadsheetFactory factory;
-    private Spreadsheet spreadSheet;
+    private Spreadsheet spreadsheet;
     private SpreadsheetLoader spreadsheetLoader;
     private SpreadsheetSaver spreadsheetSaver;
     protected UIFactory uiFactory;
@@ -34,20 +34,20 @@ public class SpreadsheetController {
 
     public void buildFrameWork(TextContentChecker textContentChecker,
                                NumericalContentChecker numericalContentChecker) {
-        this.spreadSheet = this.factory.createSpreadSheet();
+        this.spreadsheet = this.factory.createSpreadSheet();
         this.spreadsheetLoader = this.factory.createSpreadSheetLoader(
                 textContentChecker, numericalContentChecker);
         this.spreadsheetSaver = this.factory.createSpreadSheetSaver();
         this.spreadsheetSaver.setFactory(this.factory);
-        this.spreadsheetSaver.setSpreadsheet(this.spreadSheet);
+        this.spreadsheetSaver.setSpreadsheet(this.spreadsheet);
     }
 
     public void addCell(CoordinateSpec coordinateSpec, ContentSpec contentSpec) {
         Coordinate coordinate = factory.createCoordinate(coordinateSpec);
         Content content = factory.createContent(contentSpec);
-        this.spreadSheet.setCell(coordinate, factory.createCell(content));
-        UICell uiCell = uiFactory.createUICell(content);
-        this.uiSpreadsheet.setCell(uiCell, coordinate.getRow(), coordinate.getColumnAsNum());
+        Cell cell = factory.createCell(content);
+        this.spreadsheet.setCell(coordinate, cell);
+        this.uiSpreadsheet.setValueAt(coordinate.getRow(), coordinate.getColumnAsNum(), cell.getValue());
     }
 
     public void saveSpreadsheet() throws FilenameNotSetException {
@@ -61,7 +61,17 @@ public class SpreadsheetController {
     }
 
     public void loadSpreadsheet(String filename) throws IOException {
-        this.spreadSheet = spreadsheetLoader.load(filename);
+        this.spreadsheet = spreadsheetLoader.load(filename);
+        refreshUISpreadsheet();
+    }
+
+    private void refreshUISpreadsheet() {
+        this.uiSpreadsheet.resetCells();
+        for (Map.Entry<Coordinate, Cell> entry : this.spreadsheet.getCells().entrySet()) {
+            Coordinate coordinate = entry.getKey();
+            Cell cell = entry.getValue();
+            this.uiSpreadsheet.setValueAt(coordinate.getRow(), coordinate.getColumnAsNum(), cell.getValue());
+        }
     }
 
 }
