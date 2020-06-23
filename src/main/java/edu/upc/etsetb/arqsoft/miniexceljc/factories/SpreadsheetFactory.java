@@ -223,6 +223,10 @@ public abstract class SpreadsheetFactory {
         return new Coordinate(spec.getRow(), spec.getColumn());
     }
 
+    public SpreadSheetCoordinate createSpreadsheetCoordinate(CoordinateSpec spec, Spreadsheet spreadsheet){
+        return new SpreadSheetCoordinate(spec.getRow(), spec.getColumn(), spreadsheet);
+    }
+
     public Cell createCell(Content content) {
         return new Cell(content);
     }

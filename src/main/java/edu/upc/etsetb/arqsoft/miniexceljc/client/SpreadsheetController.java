@@ -45,11 +45,10 @@ public class SpreadsheetController {
                 textContentChecker, numericalContentChecker);
         this.spreadsheetSaver = this.factory.createSpreadSheetSaver();
         this.spreadsheetSaver.setFactory(this.factory);
-        this.spreadsheetSaver.setSpreadsheet(this.spreadsheet);
     }
 
     public void addCell(CoordinateSpec coordinateSpec, ContentSpec contentSpec) {
-        Coordinate coordinate = factory.createCoordinate(coordinateSpec);
+        Coordinate coordinate = factory.createSpreadsheetCoordinate(coordinateSpec, spreadsheet);
         Content content = factory.createContent(contentSpec);
         Cell cell = factory.createCell(content);
         this.spreadsheet.setCell(coordinate, cell);
@@ -59,11 +58,11 @@ public class SpreadsheetController {
     public void saveSpreadsheet() throws FilenameNotSetException {
         if (spreadsheetSaver.getFilename() == null)
             throw new FilenameNotSetException("Filename not associated");
-        spreadsheetSaver.save();
+        spreadsheetSaver.save(spreadsheet);
     }
 
     public void saveSpreadsheetAs(String filename) {
-        spreadsheetSaver.saveAs(filename);
+        spreadsheetSaver.saveAs(spreadsheet, filename);
     }
 
     public void loadSpreadsheet(String filename) throws IOException {

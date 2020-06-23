@@ -1,5 +1,7 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands;
 
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Value;
+
 public class SubsOperator implements Operator {
     @Override
     public boolean isAdd() {
@@ -19,5 +21,10 @@ public class SubsOperator implements Operator {
     @Override
     public boolean isDiv() {
         return false;
+    }
+
+    @Override
+    public Value operate(Operand op1, Operand op2) {
+        return null;
     }
 }

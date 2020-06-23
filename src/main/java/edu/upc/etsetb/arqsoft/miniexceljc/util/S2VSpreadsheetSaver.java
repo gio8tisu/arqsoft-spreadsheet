@@ -3,6 +3,7 @@ package edu.upc.etsetb.arqsoft.miniexceljc.util;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Cell;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Coordinate;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Spreadsheet;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -10,8 +11,8 @@ import java.io.IOException;
 
 public class S2VSpreadsheetSaver extends SpreadsheetSaver {
 
-    private void writeContent(FileWriter writer) throws IOException {
-        SpreadsheetLimit<Integer> limit = findLimit();
+    private void writeContent(Spreadsheet spreadsheet, FileWriter writer) throws IOException {
+        SpreadsheetLimit<Integer> limit = findLimit(spreadsheet);
         CoordinateSpec coordinateSpec;
         Coordinate coordinate;
         Cell cell;
@@ -19,8 +20,8 @@ public class S2VSpreadsheetSaver extends SpreadsheetSaver {
             for (int j = 0; j <= limit.getMaxColumn(); j++) {
                 coordinateSpec = new CoordinateSpec(
                         i, AlphabeticRadixConverter.toAlphabeticRadix(j));
-                coordinate = factory.createCoordinate(coordinateSpec);
-                cell = this.spreadsheet.getCell(coordinate);
+                coordinate = factory.createSpreadsheetCoordinate(coordinateSpec, spreadsheet);
+                cell = spreadsheet.getCell(coordinate);
                 if (cell != null)
                     writer.write(cell.getContent().toString());
                 if (j != limit.getMaxColumn())
@@ -33,7 +34,7 @@ public class S2VSpreadsheetSaver extends SpreadsheetSaver {
     }
 
     @Override
-    public void save() {
+    public void save(Spreadsheet spreadsheet) {
         try {
             File file = new File(this.filename);
             if (file.createNewFile()) {
@@ -42,21 +43,15 @@ public class S2VSpreadsheetSaver extends SpreadsheetSaver {
                 logger.info("Overwriting file contents(" + this.filename + ").");
             }
             FileWriter writer = new FileWriter(file);
-            writeContent(writer);
+            writeContent(spreadsheet, writer);
         } catch (IOException e) {
             logger.severe("Error while trying to save");
         }
     }
 
-    @Override
-    public void saveAs(String filename) {
-        this.filename = filename;
-        this.save();
-    }
-
-    private SpreadsheetLimit<Integer> findLimit() {
+    private SpreadsheetLimit<Integer> findLimit(Spreadsheet spreadsheet) {
         int maxColumn = 0, maxRow = 0;
-        for (Coordinate coordinate: this.spreadsheet.getCells().keySet()) {
+        for (Coordinate coordinate: spreadsheet.getCells().keySet()) {
             if (maxRow < coordinate.getRow())
                 maxRow = coordinate.getRow();
 

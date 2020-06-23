@@ -9,7 +9,7 @@ public class NumericalContent implements Content {
 
     @Override
     public Value evaluate() {
-        return new Value<>(number);
+        return new NumericalValue(number);
     }
 
     @Override

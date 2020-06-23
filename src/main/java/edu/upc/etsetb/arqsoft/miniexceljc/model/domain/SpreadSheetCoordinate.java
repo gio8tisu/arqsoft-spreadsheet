@@ -1,33 +1,21 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.model.domain;
 
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.Operand;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.AlphabeticRadixConverter;
 
 import java.util.Objects;
 
-public class Coordinate {
-    protected int row;
-    protected String column;
+public class SpreadSheetCoordinate extends Coordinate implements Operand {
+    private final Spreadsheet spreadsheet;
 
-    public Coordinate(int row, String column) {
-        this.row = row;
-        this.column = column;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public String getColumn() {
-        return column;
-    }
-
-    public int getColumnAsNum() {
-        return AlphabeticRadixConverter.fromAlphabeticRadix(column);
+    public SpreadSheetCoordinate(int row, String column, Spreadsheet spreadsheet) {
+        super(row, column);
+        this.spreadsheet = spreadsheet;
     }
 
     @Override
-    public String toString() {
-        return column + row;
+    public Value getValue() {
+        return this.spreadsheet.getCell(this).getValue();
     }
 
     @Override

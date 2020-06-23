@@ -1,15 +1,11 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.model.domain;
 
-public class Value<T> {
-    private T value;
+public interface Value {
 
-    public Value(T value) {
-        this.value = value;
-    }
+    String toString();
 
-    @Override
-    public String toString() {
-        return this.value.toString();
-    }
-
+    Value sum(Value v);
+    Value subs(Value v);
+    Value mult(Value v);
+    Value div(Value v);
 }
