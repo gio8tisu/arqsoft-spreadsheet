@@ -45,4 +45,5 @@ public interface SyntaxChecker {
      */
     public void check(String input) throws SyntaxException;
 
+    String result2String();
 }
