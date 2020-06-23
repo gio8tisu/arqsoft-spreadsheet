@@ -14,7 +14,6 @@ public abstract class UIFactory {
     }
 
     public abstract UISpreadsheet createUISpreadSheet();
-    public abstract UICell createUICell(Content content);
     public abstract UIRenderer createUIRenderer();
 
 }

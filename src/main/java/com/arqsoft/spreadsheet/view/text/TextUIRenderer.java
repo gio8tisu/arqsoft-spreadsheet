@@ -31,12 +31,7 @@ public class TextUIRenderer implements UIRenderer {
     private void printRow(UISpreadsheet spreadsheet, StringBuilder builder, int rowNum) {
         for (int column=this.columnOffset; column <= this.columnMax; column++) {
             builder.append("[");
-            TextUICell cell = (TextUICell) spreadsheet.getCell(rowNum, column);
-            if(cell != null) {
-                builder.append(cell.getValue());
-            } else {
-                builder.append("  ");
-            }
+            builder.append(spreadsheet.getValueAt(rowNum, column));
             builder.append("]").append("\t");
             System.out.print(builder.toString());
             builder.delete(0,builder.length());
@@ -44,7 +39,7 @@ public class TextUIRenderer implements UIRenderer {
     }
 
     private void printHeader(StringBuilder builder) {
-        for (int i = columnOffset; i < columnMax; i++) {
+        for (int i = columnOffset; i <= columnMax; i++) {
             builder.append(AlphabeticRadixConverter.toAlphabeticRadix(i)).append("\t");
         }
         System.out.println(builder.toString());
