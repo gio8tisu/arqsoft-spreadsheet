@@ -16,14 +16,14 @@ public class S2VSpreadsheetSaver extends SpreadsheetSaver {
         Coordinate coordinate;
         Cell cell;
         for (int i = 1; i <= limit.getMaxRow(); i++) {
-            for (int j = 0; j < limit.getMaxColumn(); j++) {
+            for (int j = 0; j <= limit.getMaxColumn(); j++) {
                 coordinateSpec = new CoordinateSpec(
                         i, AlphabeticRadixConverter.toAlphabeticRadix(j));
                 coordinate = factory.createCoordinate(coordinateSpec);
                 cell = this.spreadsheet.getCell(coordinate);
                 if (cell != null)
                     writer.write(cell.getContent().toString());
-                if (j != limit.getMaxColumn() - 1)
+                if (j != limit.getMaxColumn())
                     writer.write(";");
             }
             if (i != limit.getMaxRow())
