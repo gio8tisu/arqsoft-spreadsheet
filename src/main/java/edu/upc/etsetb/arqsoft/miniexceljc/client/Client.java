@@ -1,6 +1,6 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.client;
 
-import edu.upc.etsetb.arqsoft.miniexceljc.client.text.Client;
+import edu.upc.etsetb.arqsoft.miniexceljc.client.text.TextClient;
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.CoordinateChecker;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.NumericalContentChecker;
@@ -9,7 +9,7 @@ import edu.upc.etsetb.arqsoft.miniexceljc.view.UIFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.view.UIRenderer;
 import edu.upc.etsetb.arqsoft.miniexceljc.view.UISpreadsheet;
 
-public abstract class AbstractClient {
+public abstract class Client {
     protected SpreadsheetController controller;
     protected TextContentChecker textContentChecker;
     protected NumericalContentChecker numericalContentChecker;
@@ -29,7 +29,7 @@ public abstract class AbstractClient {
             controller.setFactory(factory);
             controller.setUISpreadsheet(spreadsheet);
 
-            Client client = new Client();
+            Client client = factory.createClient();
             client.setRenderer(uiFactory.createUIRenderer());
             client.setController(controller);
             client.setSpreadsheet(spreadsheet);

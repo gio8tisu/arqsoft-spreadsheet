@@ -5,6 +5,8 @@
  */
 package edu.upc.etsetb.arqsoft.miniexceljc.factories.impl;
 
+import edu.upc.etsetb.arqsoft.miniexceljc.client.Client;
+import edu.upc.etsetb.arqsoft.miniexceljc.client.text.TextClient;
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.Coordinate;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
@@ -98,6 +100,11 @@ public class DefaultFactory extends SpreadsheetFactory {
     @Override
     public FormulaVisitor createFormulaVisitor(Spreadsheet spreadsheet, Coordinate startCoordinate) {
         return new FormulaVisitorImpl(spreadsheet, startCoordinate);
+    }
+
+    @Override
+    public Client createClient() {
+        return new TextClient();
     }
 
     @Override

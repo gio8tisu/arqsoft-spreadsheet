@@ -1,6 +1,6 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.client.text;
 
-import edu.upc.etsetb.arqsoft.miniexceljc.client.AbstractClient;
+import edu.upc.etsetb.arqsoft.miniexceljc.client.Client;
 import edu.upc.etsetb.arqsoft.miniexceljc.client.FilenameNotSetException;
 import edu.upc.etsetb.arqsoft.miniexceljc.client.text.util.CommandParser;
 import edu.upc.etsetb.arqsoft.miniexceljc.client.text.util.IllegalCommandException;
@@ -10,12 +10,12 @@ import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Client extends AbstractClient {
+public class TextClient extends Client {
 
     private final Scanner scanner;
     private final CommandParser parser;
 
-    public Client() {
+    public TextClient() {
         this.scanner = new Scanner(System.in);
         this.parser = new CommandParser();
     }

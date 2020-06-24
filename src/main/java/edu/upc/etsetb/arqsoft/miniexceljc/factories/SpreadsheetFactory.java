@@ -5,6 +5,7 @@
  */
 package edu.upc.etsetb.arqsoft.miniexceljc.factories;
 
+import edu.upc.etsetb.arqsoft.miniexceljc.client.Client;
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.impl.DefaultFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.functions.FunctionsRegister;
@@ -206,6 +207,8 @@ public abstract class SpreadsheetFactory {
     }
 
     abstract public FormulaVisitor createFormulaVisitor(Spreadsheet spreadsheet, Coordinate startCoordinate);
+
+    public abstract Client createClient();
 
     public Spreadsheet createSpreadSheet() {
         return new Spreadsheet();
