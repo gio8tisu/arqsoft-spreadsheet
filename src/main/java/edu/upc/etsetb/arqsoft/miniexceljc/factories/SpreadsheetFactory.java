@@ -152,17 +152,6 @@ public abstract class SpreadsheetFactory {
             throws BadArgumentException;
 
     /**
-     * Creates a Cell coordinate object, whose value is the String passed as 
-     * argument to the method, "A12" for instance.
-     * 
-     * @param cellCoord the coordinate of the cell
-     * @return the object of class CellCoordinate
-     * 
-     * @throws BadArgumentException if the String is not a correct cell coordinate
-     */
-    public abstract Operand createCellCoordinate(String cellCoord) throws BadArgumentException;
-
-    /**
      * Creates a Range object.
      * 
      * @param range a string representing the range
@@ -179,7 +168,7 @@ public abstract class SpreadsheetFactory {
      * @throws BadArgumentException if some of the strings passed as argument does not 
      * correspond to a cell coordinate.
      */
-    public abstract Operand createCellsRange(String cCoord1, String cCoord2) throws BadArgumentException;
+    public abstract Operand createCellsRange(CoordinateSpec cCoord1, CoordinateSpec cCoord2) throws BadArgumentException;
 
     /**
      * Creates a number operand whose value is the numeric value represented by the 
@@ -191,7 +180,7 @@ public abstract class SpreadsheetFactory {
      * @throws BadArgumentException if the string passed does not represent any 
      * number
      */
-    public abstract Operand createNumber(String value) throws BadArgumentException ;
+    public abstract Operand createNumber(double value) throws BadArgumentException ;
     
     /**
      * Creates an expression of operands and operators (expression components).

@@ -1,6 +1,8 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.model.domain.functions;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.NumericalValue;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Spreadsheet;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Value;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.Operand;
 
 import java.util.ArrayList;
@@ -24,11 +26,17 @@ public class PromedioFunction implements Function {
     }
 
     @Override
-    public NumericalValue getValue() {
-        double result = 0;
-        for (Operand o: this.elements) {
-            result += ((NumericalValue) o.getValue()).getValue();
+    public List<Value> getValue(Spreadsheet spreadsheet) {
+        double sum = 0;
+        int numElements = 0;
+        for (Operand operand: this.elements) {
+            for (Value value: operand.getValue()) {
+                sum += ((NumericalValue) value).getNumber();
+                numElements++;
+            }
         }
-        return new NumericalValue(result / this.elements.size());
+        List<Value> res = new ArrayList<>();
+        res.add(new NumericalValue(sum / numElements));
+        return res;
     }
 }

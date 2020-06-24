@@ -1,6 +1,7 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.model.domain.functions;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.NumericalValue;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Spreadsheet;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Value;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.Operand;
 
@@ -25,13 +26,17 @@ public class MaxFunction implements Function {
     }
 
     @Override
-    public Value getValue() {
-        double max = ((NumericalValue) this.elements.get(0).getValue()).getValue();
-        for (Operand o: this.elements.subList(1, elements.size())) {
-            double candidate = ((NumericalValue) o.getValue()).getValue();
-            if (max < candidate)
-                max = candidate;
+    public List<Value> getValue(Spreadsheet spreadsheet) {
+        double max = 0;
+        for (Operand operand: this.elements) {
+            for (Value value: operand.getValue()) {
+                double candidate = ((NumericalValue) value).getNumber();
+                if (max < candidate)
+                    max = candidate;
+            }
         }
-        return new NumericalValue(max);
+        List<Value> res = new ArrayList<>();
+        res.add(new NumericalValue(max));
+        return res;
     }
 }

@@ -1,8 +1,9 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.model.domain;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.Operand;
-import edu.upc.etsetb.arqsoft.miniexceljc.util.AlphabeticRadixConverter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SpreadSheetCoordinate extends Coordinate implements Operand {
@@ -14,8 +15,10 @@ public class SpreadSheetCoordinate extends Coordinate implements Operand {
     }
 
     @Override
-    public Value getValue() {
-        return this.spreadsheet.getCell(this).getValue();
+    public List<Value> getValue(Spreadsheet spreadsheet) {
+        List<Value> res = new ArrayList<Value>();
+        res.add(this.spreadsheet.getCell(this).getValue());
+        return res;
     }
 
     @Override

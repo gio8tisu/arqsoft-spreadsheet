@@ -28,6 +28,6 @@ public class MultOperator implements Operator {
     public Value operate(Operand op1, Operand op2) {
         NumericalValue value1 = (NumericalValue) op1.getValue();
         NumericalValue value2 = (NumericalValue) op2.getValue();
-        return new NumericalValue(value1.getValue() * value2.getValue());
+        return new NumericalValue(value1.getNumber() * value2.getNumber());
     }
 }

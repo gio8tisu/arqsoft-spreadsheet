@@ -7,29 +7,8 @@ public class TextValue implements Value {
         this.value = value;
     }
 
-    public String getValue() {
+    public String getString() {
         return value;
-    }
-
-    @Override
-    public Value sum(Value v) {
-        String otherValue = ((TextValue) v).value;
-        return new TextValue(otherValue);
-    }
-
-    @Override
-    public Value subs(Value v) {
-        throw new UnsupportedOperationException("Cant subtract text");
-    }
-
-    @Override
-    public Value mult(Value v) {
-        throw new UnsupportedOperationException("Cant multiply text");
-    }
-
-    @Override
-    public Value div(Value v) {
-        throw new UnsupportedOperationException("Cant divide text");
     }
 
     @Override

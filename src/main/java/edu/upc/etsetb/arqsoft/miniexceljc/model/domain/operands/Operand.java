@@ -5,7 +5,10 @@
  */
 package edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands;
 
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Spreadsheet;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Value;
+
+import java.util.List;
 
 /**
  * Empty interface for grouping all the classes whose objects may be an 
@@ -16,5 +19,5 @@ import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Value;
  * @author Juan Carlos Cruellas
  */
 public interface Operand extends ExpressionComponent{
-    Value getValue();
+    List<Value> getValue(Spreadsheet spreadsheet);
 }

@@ -6,7 +6,9 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.factories.impl;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.functions.FunctionsRegister;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.NumericalValue;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.functions.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.PostFixGeneratorImpl;
@@ -58,26 +60,28 @@ public class DefaultFactory extends SpreadsheetFactory {
     }
 
     @Override
-    public Operand createFunction(String funcName)
-            throws BadArgumentException {
-        throw new UnsupportedOperationException("createFunction() not supported yet.");
+    public Operand createFunction(String funcName) throws BadArgumentException {
+        switch (funcName) {
+            case "SUMA":
+                return new SumaFunction();
+            case "MIN":
+                return new MinFunction();
+            case "MAX":
+                return new MaxFunction();
+            case "PROMEDIO":
+                return new PromedioFunction();
+        }
+        throw new BadArgumentException("Unknown function.");
     }
 
     @Override
-    public Operand createCellCoordinate(String cellCoord)
-            throws BadArgumentException {
-        throw new UnsupportedOperationException("createCellCoordinate() not supported yet.");
+    public Operand createCellsRange(CoordinateSpec cCoord1, CoordinateSpec cCoord2) throws BadArgumentException {
+        return new RangeOperand(createCoordinate(cCoord1), createCoordinate(cCoord2));
     }
 
     @Override
-    public Operand createCellsRange(String cCoord1, String cCoord2)
-            throws BadArgumentException {
-        throw new UnsupportedOperationException("createCellsRange() not supported yet.");
-    }
-
-    @Override
-    public Operand createNumber(String value) throws BadArgumentException {
-        throw new UnsupportedOperationException("createNumber() not supported yet.");
+    public Operand createNumber(double value) throws BadArgumentException {
+        return new NumericalValue(value);
     }
 
     @Override
