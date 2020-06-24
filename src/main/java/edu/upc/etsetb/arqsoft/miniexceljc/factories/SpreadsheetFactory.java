@@ -7,12 +7,12 @@ package edu.upc.etsetb.arqsoft.miniexceljc.factories;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.impl.DefaultFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.*;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.functions.FunctionsRegister;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.BadArgumentException;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.ExpressionComponent;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.Operand;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.Operator;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.impl.Number;
+import edu.upc.etsetb.arqsoft.miniexceljc.functions.FunctionsRegister;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.BadArgumentException;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.ExpressionComponent;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operand;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operator;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.impl.Number;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
@@ -209,6 +209,13 @@ public abstract class SpreadsheetFactory {
 
     public Spreadsheet createSpreadSheet() {
         return new Spreadsheet();
+    }
+
+    public Operand createCellCoordinate(String c) {
+        String col = c.substring(0, 1);
+        int row = Integer.parseInt(c.substring(1));
+        CoordinateSpec spec = new CoordinateSpec(row, col);
+        return createCoordinate(spec);
     }
 
     public Coordinate createCoordinate(CoordinateSpec spec){

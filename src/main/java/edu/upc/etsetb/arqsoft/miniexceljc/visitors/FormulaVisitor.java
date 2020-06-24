@@ -3,16 +3,15 @@ package edu.upc.etsetb.arqsoft.miniexceljc.visitors;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.Content;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.Coordinate;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.Value;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.functions.impl.MaxFunction;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.functions.impl.MinFunction;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.functions.impl.PromedioFunction;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.functions.impl.SumaFunction;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.Operator;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.impl.CellsRange;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.impl.Number;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.impl.PostFixExpression;
+import edu.upc.etsetb.arqsoft.miniexceljc.functions.impl.MaxFunction;
+import edu.upc.etsetb.arqsoft.miniexceljc.functions.impl.MinFunction;
+import edu.upc.etsetb.arqsoft.miniexceljc.functions.impl.PromedioFunction;
+import edu.upc.etsetb.arqsoft.miniexceljc.functions.impl.SumaFunction;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operator;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.impl.CellsRange;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.impl.Number;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.impl.PostFixExpression;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 

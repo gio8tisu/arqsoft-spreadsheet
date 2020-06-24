@@ -6,7 +6,7 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.postfix;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.ExpressionComponent;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.ExpressionComponent;
 
 import java.util.List;
 

@@ -1,10 +1,7 @@
-package edu.upc.etsetb.arqsoft.miniexceljc.model.functions.impl;
+package edu.upc.etsetb.arqsoft.miniexceljc.functions.impl;
 
-import edu.upc.etsetb.arqsoft.miniexceljc.model.NumericalValue;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.Spreadsheet;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.Value;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.functions.Function;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.Operand;
+import edu.upc.etsetb.arqsoft.miniexceljc.functions.Function;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operand;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.DivZeroException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
@@ -13,10 +10,10 @@ import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MaxFunction implements Function {
+public class MinFunction implements Function {
     private List<Operand> elements;
 
-    public MaxFunction() {
+    public MinFunction() {
         this.elements = new ArrayList<>();
     }
 
@@ -27,7 +24,7 @@ public class MaxFunction implements Function {
 
     @Override
     public String getName() {
-        return "MAX";
+        return "MIN";
     }
 
     @Override
@@ -37,20 +34,22 @@ public class MaxFunction implements Function {
 
     @Override
     public Double accept(FormulaVisitor v) throws NotComputableException, DivZeroException, CircularReferenceException {
-        return v.visitMax(this);
+        return v.visitMin(this);
     }
 
+//    @Override
 //    public List<Value> getValue(Spreadsheet spreadsheet) {
-//        double max = 0;
+//        double min = Double.POSITIVE_INFINITY;
 //        for (Operand operand: this.elements) {
 //            for (Value value: operand.getValue(spreadsheet)) {
 //                double candidate = ((NumericalValue) value).getNumber();
-//                if (max < candidate)
-//                    max = candidate;
+//                if (min > candidate)
+//                    min = candidate;
 //            }
 //        }
 //        List<Value> res = new ArrayList<>();
-//        res.add(new NumericalValue(max));
+//        res.add(new NumericalValue(min));
 //        return res;
 //    }
+
 }

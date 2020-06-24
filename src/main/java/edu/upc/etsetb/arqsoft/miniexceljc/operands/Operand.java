@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.upc.etsetb.arqsoft.miniexceljc.model.operands;
+package edu.upc.etsetb.arqsoft.miniexceljc.operands;
 
 /**
  * Empty interface for grouping all the classes whose objects may be an 

@@ -1,10 +1,7 @@
-package edu.upc.etsetb.arqsoft.miniexceljc.model.functions.impl;
+package edu.upc.etsetb.arqsoft.miniexceljc.functions.impl;
 
-import edu.upc.etsetb.arqsoft.miniexceljc.model.NumericalValue;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.Spreadsheet;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.Value;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.functions.Function;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.Operand;
+import edu.upc.etsetb.arqsoft.miniexceljc.functions.Function;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operand;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.DivZeroException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;

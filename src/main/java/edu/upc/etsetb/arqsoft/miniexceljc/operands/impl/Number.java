@@ -1,6 +1,6 @@
-package edu.upc.etsetb.arqsoft.miniexceljc.model.operands.impl;
+package edu.upc.etsetb.arqsoft.miniexceljc.operands.impl;
 
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.Operand;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operand;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.DivZeroException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;

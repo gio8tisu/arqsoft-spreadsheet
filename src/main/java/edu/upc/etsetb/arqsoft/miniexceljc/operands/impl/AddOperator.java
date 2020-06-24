@@ -1,15 +1,15 @@
-package edu.upc.etsetb.arqsoft.miniexceljc.model.operands.impl;
+package edu.upc.etsetb.arqsoft.miniexceljc.operands.impl;
 
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.Operator;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operator;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.DivZeroException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 
-public class MultOperator implements Operator {
+public class AddOperator implements Operator {
     @Override
     public boolean isAdd() {
-        return false;
+        return true;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class MultOperator implements Operator {
 
     @Override
     public boolean isMult() {
-        return true;
+        return false;
     }
 
     @Override

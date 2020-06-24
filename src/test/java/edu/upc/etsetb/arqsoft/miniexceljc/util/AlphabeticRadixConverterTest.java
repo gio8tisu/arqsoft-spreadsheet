@@ -2,7 +2,7 @@ package edu.upc.etsetb.arqsoft.miniexceljc.util;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AlphabeticRadixConverterTest {
     @Test

@@ -1,6 +1,6 @@
-package edu.upc.etsetb.arqsoft.miniexceljc.model.functions.impl;
+package edu.upc.etsetb.arqsoft.miniexceljc.functions.impl;
 
-import edu.upc.etsetb.arqsoft.miniexceljc.model.functions.FunctionsRegister;
+import edu.upc.etsetb.arqsoft.miniexceljc.functions.FunctionsRegister;
 
 import java.util.Arrays;
 import java.util.HashSet;

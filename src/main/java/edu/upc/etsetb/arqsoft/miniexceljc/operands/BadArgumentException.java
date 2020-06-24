@@ -1,4 +1,4 @@
-package edu.upc.etsetb.arqsoft.miniexceljc.model.operands;
+package edu.upc.etsetb.arqsoft.miniexceljc.operands;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.SyntaxException;
 

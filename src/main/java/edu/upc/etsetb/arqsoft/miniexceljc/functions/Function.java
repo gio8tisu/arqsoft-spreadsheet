@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.upc.etsetb.arqsoft.miniexceljc.model.functions;
+package edu.upc.etsetb.arqsoft.miniexceljc.functions;
 
-import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.Operand;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operand;
 
 import java.util.List;
 

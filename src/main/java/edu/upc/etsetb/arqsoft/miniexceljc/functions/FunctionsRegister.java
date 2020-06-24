@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.upc.etsetb.arqsoft.miniexceljc.model.functions;
+package edu.upc.etsetb.arqsoft.miniexceljc.functions;
 
 /**
  * The class implementing this interface shall record the names of the functions 
