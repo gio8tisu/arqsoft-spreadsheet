@@ -2,6 +2,7 @@ package edu.upc.etsetb.arqsoft.miniexceljc.client;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.CoordinateChecker;
+import edu.upc.etsetb.arqsoft.miniexceljc.util.FormulaContentChecker;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.NumericalContentChecker;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.TextContentChecker;
 import edu.upc.etsetb.arqsoft.miniexceljc.view.UIFactory;
@@ -12,6 +13,7 @@ public abstract class Client {
     protected SpreadsheetController controller;
     protected TextContentChecker textContentChecker;
     protected NumericalContentChecker numericalContentChecker;
+    protected FormulaContentChecker formulaContentChecker;
     protected CoordinateChecker coordinateChecker;
     protected UIRenderer renderer;
     protected UISpreadsheet spreadsheet;
@@ -32,9 +34,10 @@ public abstract class Client {
             client.setRenderer(uiFactory.createUIRenderer());
             client.setController(controller);
             client.setSpreadsheet(spreadsheet);
-            client.setTextContentChecker(new TextContentChecker());
-            client.setNumericalContentChecker(new NumericalContentChecker());
-            client.setCoordinateChecker(new CoordinateChecker());
+            client.setTextContentChecker((TextContentChecker) factory.createTextContentChecker());
+            client.setNumericalContentChecker((NumericalContentChecker) factory.createNumericalContentChecker());
+            client.setFormulaContentChecker((FormulaContentChecker) factory.createFormulaContentChecker());
+            client.setCoordinateChecker((CoordinateChecker) factory.createCoordinateChecker());
 
             controller.buildFrameWork(client.textContentChecker, client.numericalContentChecker);
             client.run();
@@ -62,6 +65,10 @@ public abstract class Client {
 
     public void setNumericalContentChecker(NumericalContentChecker numericalContentChecker) {
         this.numericalContentChecker = numericalContentChecker;
+    }
+
+    public void setFormulaContentChecker(FormulaContentChecker formulaContentChecker) {
+        this.formulaContentChecker = formulaContentChecker;
     }
 
     public void setCoordinateChecker(CoordinateChecker coordinateChecker) {

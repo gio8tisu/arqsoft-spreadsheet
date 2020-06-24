@@ -21,6 +21,7 @@ import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.PostFixGeneratorImpl;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.SyntaxCheckerImpl;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.TokenImpl;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.TokenizerImpl;
+import edu.upc.etsetb.arqsoft.miniexceljc.util.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.impl.PostFixFormulaVisitor;
 
@@ -107,9 +108,33 @@ public class DefaultFactory extends SpreadsheetFactory {
         return new TextClient();
     }
 
+    public SpreadsheetSaver createSpreadSheetSaver() {
+        return new S2VSpreadsheetSaver();
+    }
+
+    public SpreadsheetLoader createSpreadSheetLoader(TextContentChecker textContentChecker,
+                                                     NumericalContentChecker numericalContentChecker) {
+        return new S2VSpreadsheetLoader(this, textContentChecker, numericalContentChecker);
+    }
+
     @Override
     public FunctionsRegister createFunctionsRegister() {
         return new FunctionsRegisterImpl();
     }
 
+    public TextContentChecker createTextContentChecker() {
+        return new TextContentChecker();
+    }
+
+    public NumericalContentChecker createNumericalContentChecker() {
+        return new NumericalContentChecker();
+    }
+
+    public FormulaContentChecker createFormulaContentChecker() {
+        return new FormulaContentChecker(this.createSyntaxChecker());
+    }
+
+    public CoordinateChecker createCoordinateChecker() {
+        return new CoordinateChecker();
+    }
 }

@@ -4,8 +4,10 @@ import edu.upc.etsetb.arqsoft.miniexceljc.client.Client;
 import edu.upc.etsetb.arqsoft.miniexceljc.client.FilenameNotSetException;
 import edu.upc.etsetb.arqsoft.miniexceljc.client.text.util.CommandParser;
 import edu.upc.etsetb.arqsoft.miniexceljc.client.text.util.IllegalCommandException;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Content;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.ContentSpec;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
+import edu.upc.etsetb.arqsoft.miniexceljc.postfix.SyntaxChecker;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -147,7 +149,7 @@ public class TextClient extends Client {
             if (content.startsWith("\"") | content.startsWith("'")) {
                 return  (ContentSpec) textContentChecker.checkInput(content);
             } else if (content.startsWith("=")) {
-                throw new UnsupportedOperationException("Cannot create formula content");
+                return (ContentSpec) formulaContentChecker.checkInput(content);
             } else {  // Assume numerical content.
                 return (ContentSpec) numericalContentChecker.checkInput(content);
             }

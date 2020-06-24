@@ -209,7 +209,7 @@ public abstract class SpreadsheetFactory {
         if (spec.getType() == CellType.TEXT) {
             return new TextContent(spec.getContent());
         } else if (spec.getType() == CellType.FORMULA) {
-            throw new UnsupportedOperationException("Cannot create formula content");
+            return new FormulaContent(spec.getContent());
         } else if (spec.getType() == CellType.NUMERICAL) {
             // Assume numerical content.
             return new NumericalContent(spec.getContent());
@@ -240,12 +240,16 @@ public abstract class SpreadsheetFactory {
         return new Cell(content);
     }
 
-    public SpreadsheetLoader createSpreadSheetLoader(TextContentChecker textContentChecker,
-                                                     NumericalContentChecker numericalContentChecker) {
-        return new S2VSpreadsheetLoader(this, textContentChecker, numericalContentChecker);
-    }
+    abstract public SpreadsheetSaver createSpreadSheetSaver();
 
-    public SpreadsheetSaver createSpreadSheetSaver() {
-        return new S2VSpreadsheetSaver();
-    }
+    abstract public SpreadsheetLoader createSpreadSheetLoader(
+            TextContentChecker textContentChecker, NumericalContentChecker numericalContentChecker);
+
+    abstract public InputChecker createTextContentChecker();
+
+    abstract public InputChecker createNumericalContentChecker();
+
+    abstract public InputChecker createFormulaContentChecker();
+
+    abstract public InputChecker createCoordinateChecker();
 }
