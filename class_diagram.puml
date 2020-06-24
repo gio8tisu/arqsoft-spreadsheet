@@ -41,23 +41,22 @@ package model #CCCCCC {
   interface Value
   class TextValue
   class NumericalValue
+}
 
-  package operands #CCCCCC {
-    interface ExpressionComponent
-    interface Operator
-    interface Operand
-    interface Expression
+package operands #CCCCCC {
+interface ExpressionComponent
+interface Operator
+interface Operand
+interface Expression
 
-    package operands.impl #EEEEEE {
-      class CellsRange
-      class PostFixExpression
-      class AddOperator
-      class SubsOperator
-      class MultOperator
-      class DivOperator
-    }
+  package operands.impl #EEEEEE {
+    class CellsRange
+    class PostFixExpression
+    class AddOperator
+    class SubsOperator
+    class MultOperator
+    class DivOperator
   }
-
 }
 
 package functions #CCCCCC {

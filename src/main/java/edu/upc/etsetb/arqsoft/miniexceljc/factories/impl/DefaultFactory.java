@@ -76,7 +76,7 @@ public class DefaultFactory extends SpreadsheetFactory {
                 return new MinFunction();
             case "MAX":
                 return new MaxFunction();
-            case "PROMEDIO":
+            case "MEAN":
                 return new PromedioFunction();
         }
         throw new BadArgumentException("Unknown function.");

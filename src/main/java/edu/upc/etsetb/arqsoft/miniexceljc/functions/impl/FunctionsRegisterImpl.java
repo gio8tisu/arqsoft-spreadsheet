@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class FunctionsRegisterImpl implements FunctionsRegister {
-    private static Set<String> functionNames = new HashSet<>(Arrays.asList("SUMA", "PROMEDIO", "MIN", "MAX"));
+    private static Set<String> functionNames = new HashSet<>(Arrays.asList("SUMA", "MEAN", "MIN", "MAX"));
 
     public static FunctionsRegister getInstance(){
         return new FunctionsRegisterImpl();

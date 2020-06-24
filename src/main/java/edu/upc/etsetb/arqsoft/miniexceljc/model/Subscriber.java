@@ -1,4 +1,4 @@
-package edu.upc.etsetb.arqsoft.miniexceljc.subscribers;
+package edu.upc.etsetb.arqsoft.miniexceljc.model;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.DivZeroException;

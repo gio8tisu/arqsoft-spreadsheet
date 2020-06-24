@@ -170,6 +170,17 @@ public abstract class SpreadsheetFactory {
      * @throws BadArgumentException if some of the strings passed as argument does not 
      * correspond to a cell coordinate.
      */
+    public Operand createCellsRange(String cCoord1, String cCoord2) throws BadArgumentException {
+        String col1 = cCoord1.substring(0, 1);
+        int row1 = Integer.parseInt(cCoord1.substring(1));
+        CoordinateSpec spec1 = new CoordinateSpec(row1, col1);
+        String col2 = cCoord2.substring(0, 1);
+        int row2 = Integer.parseInt(cCoord2.substring(1));
+        CoordinateSpec spec2 = new CoordinateSpec(row2, col2);
+
+        return createCellsRange(spec1, spec2);
+    }
+
     public abstract Operand createCellsRange(CoordinateSpec cCoord1, CoordinateSpec cCoord2) throws BadArgumentException;
 
     /**
