@@ -1,6 +1,8 @@
-package edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands;
+package edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.impl;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Value;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.Operand;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.Operator;
 
 public class SumOperator implements Operator {
     @Override
