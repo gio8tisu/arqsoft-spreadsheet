@@ -10,6 +10,10 @@ public class CommandParser {
             case "a":
                 res = Command.ADD_CELL;
                 break;
+            case "remove":
+            case "r":
+                res = Command.REMOVE_CELL;
+                break;
             case "load":
             case "l":
                 res = Command.LOAD;

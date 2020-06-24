@@ -70,5 +70,6 @@ public abstract class AbstractClient {
     }
 
     public abstract void addCell();
+    public abstract void removeCell();
     public abstract void run();
 }

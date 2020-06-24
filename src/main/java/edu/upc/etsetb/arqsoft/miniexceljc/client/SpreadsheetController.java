@@ -57,6 +57,12 @@ public class SpreadsheetController {
         // TODO: Update view.
     }
 
+    public void removeCell(CoordinateSpec coordinateSpec) {
+        Coordinate coordinate = factory.createCoordinate(coordinateSpec);
+        this.spreadsheet.unSetCell(coordinate);
+        // TODO: Update view.
+    }
+
     public void saveSpreadsheet() throws FilenameNotSetException {
         if (spreadsheetSaver.getFilename() == null)
             throw new FilenameNotSetException("Filename not associated");

@@ -43,6 +43,9 @@ public class Client extends AbstractClient {
                 case ADD_CELL:
                     addCell();
                     return false;
+                case REMOVE_CELL:
+                    removeCell();
+                    return false;
                 case HELP:
                     help();
                     return false;
@@ -95,6 +98,7 @@ public class Client extends AbstractClient {
 
     private void help() {
         System.out.println("add (a): Add content to cell.");
+        System.out.println("remove (r): Remove content from cell.");
         System.out.println("save (s): Save spreadsheet to file.");
         System.out.println("saveas (sa): Save spreadsheet to file as given filename.");
         System.out.println("load (l): Load spreadsheet from file.");
@@ -107,6 +111,12 @@ public class Client extends AbstractClient {
         CoordinateSpec coordinateSpec = getCoordinateFromUser();
         ContentSpec contentSpec = getCellContentFromUser();
         addCell(coordinateSpec, contentSpec);
+    }
+
+    @Override
+    public void removeCell() {
+        CoordinateSpec coordinateSpec = getCoordinateFromUser();
+        controller.removeCell(coordinateSpec);
     }
 
     private void addCell(CoordinateSpec coordinateSpec, ContentSpec contentSpec) {

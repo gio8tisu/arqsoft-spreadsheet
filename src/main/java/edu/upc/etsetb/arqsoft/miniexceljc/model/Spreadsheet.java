@@ -18,6 +18,11 @@ public class Spreadsheet {
         cells.put(coordinate, cell);
     }
 
+    public void unSetCell(Coordinate coordinate) {
+        cells.remove(coordinate);
+        removeSubscriber(coordinate);
+    }
+
     public Cell getCell(Coordinate coordinate) {
         return cells.get(coordinate);
     }
@@ -40,7 +45,7 @@ public class Spreadsheet {
         }
     }
 
-    public void removeSubscriber(Coordinate subscriber) {
+    private void removeSubscriber(Coordinate subscriber) {
         for (Set<Coordinate> subscribers: this.subscriptions.values()) {
             subscribers.remove(subscriber);
         }
