@@ -1,11 +1,9 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.visitors;
 
-import edu.upc.etsetb.arqsoft.miniexceljc.model.Content;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.Coordinate;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.Value;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.functions.impl.MaxFunction;
 import edu.upc.etsetb.arqsoft.miniexceljc.functions.impl.MinFunction;
-import edu.upc.etsetb.arqsoft.miniexceljc.functions.impl.PromedioFunction;
+import edu.upc.etsetb.arqsoft.miniexceljc.functions.impl.MeanFunction;
 import edu.upc.etsetb.arqsoft.miniexceljc.functions.impl.SumaFunction;
 import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operator;
 import edu.upc.etsetb.arqsoft.miniexceljc.operands.impl.CellsRange;
@@ -28,27 +26,31 @@ public interface FormulaVisitor {
 
     Set<Coordinate> getSubscribers(Coordinate coordinate) ;
 
-    Content getCellContent(Coordinate cc) throws EmptyCellException ;
+    Content getCellContent(Coordinate cc);
 
     void setCellContent(Coordinate coordinate, Content content) ;
 
-    Double visitMax(MaxFunction maxFunction);
+    Value visitMax(MaxFunction maxFunction) throws CircularReferenceException, NotComputableException;
 
-    Double visitPromedio(PromedioFunction promedioFunction);
+    Value visitMean(MeanFunction meanFunction) throws CircularReferenceException, NotComputableException;
 
-    Double visitMin(MinFunction minFunction);
+    Value visitMin(MinFunction minFunction) throws CircularReferenceException, NotComputableException;
 
-    Double visitSum(SumaFunction sumaFunction);
+    Value visitSuma(SumaFunction sumaFunction) throws CircularReferenceException, NotComputableException;
 
-    Double visitNumber(Number number);
+    Value visitNumber(Number number);
 
-    Double visitOperator(Operator operator);
+    Value visitOperator(Operator operator) throws NotComputableException;
 
-    Double visitCellsRange(CellsRange cellsRange);
+    Value visitCellsRange(CellsRange cellsRange) throws NotComputableException;
 
-    Double visitExpression(PostFixExpression postFixExpression);
+    Value visitExpression(PostFixExpression postFixExpression) throws CircularReferenceException, NotComputableException;
 
-    Double visitContent(Content content);
+    Value visitTextContent(TextContent content) throws NotComputableException;
 
-    Double visitCoordinate(Coordinate coordinate);
+    Value visitNumericalContent(NumericalContent content);
+
+    Value visitFormulaContent(FormulaContent content) throws NotComputableException, CircularReferenceException;
+
+    Value visitCoordinate(Coordinate coordinate) throws CircularReferenceException, NotComputableException;
 }

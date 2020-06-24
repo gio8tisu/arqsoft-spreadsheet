@@ -1,9 +1,9 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.operands.impl;
 
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Value;
 import edu.upc.etsetb.arqsoft.miniexceljc.operands.Expression;
 import edu.upc.etsetb.arqsoft.miniexceljc.operands.ExpressionComponent;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
-import edu.upc.etsetb.arqsoft.miniexceljc.visitors.DivZeroException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 
@@ -18,11 +18,11 @@ public class PostFixExpression implements Expression {
 
     @Override
     public List<ExpressionComponent> getComponents() {
-        return null;
+        return components;
     }
 
     @Override
-    public Double accept(FormulaVisitor v) throws NotComputableException, DivZeroException, CircularReferenceException {
+    public Value accept(FormulaVisitor v) throws NotComputableException, CircularReferenceException {
         return v.visitExpression(this);
     }
 }

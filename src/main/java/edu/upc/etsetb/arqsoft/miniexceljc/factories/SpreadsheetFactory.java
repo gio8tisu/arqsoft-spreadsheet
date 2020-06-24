@@ -212,7 +212,7 @@ public abstract class SpreadsheetFactory {
             throw new UnsupportedOperationException("Cannot create formula content");
         } else if (spec.getType() == CellType.NUMERICAL) {
             // Assume numerical content.
-            return new NumericalContent(new Number(spec.getContent()));
+            return new NumericalContent(spec.getContent());
         }
         throw new UnsupportedOperationException("Unknown cell type");
     }

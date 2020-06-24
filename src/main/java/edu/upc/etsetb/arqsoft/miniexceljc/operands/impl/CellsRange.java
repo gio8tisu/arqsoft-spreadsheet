@@ -4,7 +4,6 @@ import edu.upc.etsetb.arqsoft.miniexceljc.model.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operand;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.AlphabeticRadixConverter;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
-import edu.upc.etsetb.arqsoft.miniexceljc.visitors.DivZeroException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 
@@ -43,19 +42,8 @@ public class CellsRange implements Operand {
     }
 
     @Override
-    public Double accept(FormulaVisitor v) throws NotComputableException, DivZeroException, CircularReferenceException {
+    public Value accept(FormulaVisitor v) throws NotComputableException {
         return v.visitCellsRange(this);
     }
-
-//    @Override
-//    public List<Value> getValue(Spreadsheet spreadsheet) {
-//        List<SpreadSheetCoordinate> coordinates = fillCoordinates(start, end, spreadsheet);
-//        List<Value> res = new ArrayList<>();
-//        for (SpreadSheetCoordinate c: coordinates) {
-//            Cell cell = spreadsheet.getCell(c);
-//            res.add(cell.getValue());
-//        }
-//        return res;
-//    }
 
 }

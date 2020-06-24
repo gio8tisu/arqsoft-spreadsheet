@@ -11,4 +11,7 @@ public class Cell {
         return content;
     }
 
+    public void setContent(Content content) {
+        this.content = content;
+    }
 }

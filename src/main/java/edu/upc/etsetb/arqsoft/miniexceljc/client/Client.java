@@ -1,6 +1,5 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.client;
 
-import edu.upc.etsetb.arqsoft.miniexceljc.client.text.TextClient;
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.CoordinateChecker;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.NumericalContentChecker;

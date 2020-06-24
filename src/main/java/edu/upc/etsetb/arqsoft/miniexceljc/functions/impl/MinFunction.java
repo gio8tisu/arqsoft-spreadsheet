@@ -1,9 +1,9 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.functions.impl;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.functions.Function;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Value;
 import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operand;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
-import edu.upc.etsetb.arqsoft.miniexceljc.visitors.DivZeroException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 
@@ -34,7 +34,7 @@ public class MinFunction implements Function {
     }
 
     @Override
-    public Double accept(FormulaVisitor v) throws NotComputableException, DivZeroException, CircularReferenceException {
+    public Value accept(FormulaVisitor v) throws NotComputableException, CircularReferenceException {
         return v.visitMin(this);
     }
 

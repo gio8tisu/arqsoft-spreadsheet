@@ -1,20 +1,24 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.model;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
-import edu.upc.etsetb.arqsoft.miniexceljc.visitors.DivZeroException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 
-public class TextContent implements Content {
+public class TextContent extends Content {
     private String text;
 
-    public TextContent(String text) {
-        this.text = text;
+    public TextContent(String content) {
+        super(content);
+        this.text = content;
     }
 
     @Override
-    public Double accept(FormulaVisitor v) throws NotComputableException, DivZeroException, CircularReferenceException {
-        return v.visitContent(this);
+    public Value accept(FormulaVisitor v) throws NotComputableException, CircularReferenceException {
+        return v.visitTextContent(this);
+    }
+
+    public String getText() {
+        return text;
     }
 
     @Override

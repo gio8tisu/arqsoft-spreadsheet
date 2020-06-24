@@ -1,9 +1,9 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.functions.impl;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.functions.Function;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Value;
 import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operand;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
-import edu.upc.etsetb.arqsoft.miniexceljc.visitors.DivZeroException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 
@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class PromedioFunction implements Function {
+public class MeanFunction implements Function {
     private List<Operand> elements;
 
-    public PromedioFunction() {
+    public MeanFunction() {
         this.elements = new ArrayList<>();
     }
 
@@ -34,8 +34,8 @@ public class PromedioFunction implements Function {
     }
 
     @Override
-    public Double accept(FormulaVisitor v) throws NotComputableException, DivZeroException, CircularReferenceException {
-        return v.visitPromedio(this);
+    public Value accept(FormulaVisitor v) throws NotComputableException, CircularReferenceException {
+        return v.visitMean(this);
     }
 
     @Override
@@ -53,20 +53,5 @@ public class PromedioFunction implements Function {
 
         return s.toString();
     }
-
-//    @Override
-//    public List<Value> getValue(Spreadsheet spreadsheet) {
-//        double sum = 0;
-//        int numElements = 0;
-//        for (Operand operand: this.elements) {
-//            for (Value value: operand.getValue(spreadsheet)) {
-//                sum += ((NumericalValue) value).getNumber();
-//                numElements++;
-//            }
-//        }
-//        List<Value> res = new ArrayList<>();
-//        res.add(new NumericalValue(sum / numElements));
-//        return res;
-//    }
 
 }

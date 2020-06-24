@@ -22,7 +22,7 @@ import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.SyntaxCheckerImpl;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.TokenImpl;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.TokenizerImpl;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
-import edu.upc.etsetb.arqsoft.miniexceljc.visitors.impl.FormulaVisitorImpl;
+import edu.upc.etsetb.arqsoft.miniexceljc.visitors.impl.PostFixFormulaVisitor;
 
 import java.util.List;
 
@@ -77,7 +77,7 @@ public class DefaultFactory extends SpreadsheetFactory {
             case "MAX":
                 return new MaxFunction();
             case "MEAN":
-                return new PromedioFunction();
+                return new MeanFunction();
         }
         throw new BadArgumentException("Unknown function.");
     }
@@ -99,7 +99,7 @@ public class DefaultFactory extends SpreadsheetFactory {
 
     @Override
     public FormulaVisitor createFormulaVisitor(Spreadsheet spreadsheet, Coordinate startCoordinate) {
-        return new FormulaVisitorImpl(spreadsheet, startCoordinate);
+        return new PostFixFormulaVisitor(spreadsheet, startCoordinate);
     }
 
     @Override

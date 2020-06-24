@@ -12,11 +12,8 @@ import edu.upc.etsetb.arqsoft.miniexceljc.util.SpreadsheetSaver;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.TextContentChecker;
 import edu.upc.etsetb.arqsoft.miniexceljc.view.UIFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.view.UISpreadsheet;
-import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
-import edu.upc.etsetb.arqsoft.miniexceljc.visitors.impl.FormulaVisitorImpl;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class SpreadsheetController {
     private SpreadsheetFactory factory;

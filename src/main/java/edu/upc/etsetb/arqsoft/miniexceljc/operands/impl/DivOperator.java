@@ -1,8 +1,8 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.operands.impl;
 
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Value;
 import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operator;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
-import edu.upc.etsetb.arqsoft.miniexceljc.visitors.DivZeroException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 
@@ -28,7 +28,7 @@ public class DivOperator implements Operator {
     }
 
     @Override
-    public Double accept(FormulaVisitor v) throws NotComputableException, DivZeroException, CircularReferenceException {
+    public Value accept(FormulaVisitor v) throws NotComputableException, CircularReferenceException {
         return v.visitOperator(this);
     }
 }

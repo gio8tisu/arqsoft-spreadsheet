@@ -1,9 +1,9 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.functions.impl;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.functions.Function;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Value;
 import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operand;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
-import edu.upc.etsetb.arqsoft.miniexceljc.visitors.DivZeroException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 
@@ -34,7 +34,7 @@ public class MaxFunction implements Function {
     }
 
     @Override
-    public Double accept(FormulaVisitor v) throws NotComputableException, DivZeroException, CircularReferenceException {
+    public Value accept(FormulaVisitor v) throws NotComputableException, CircularReferenceException {
         return v.visitMax(this);
     }
 
@@ -54,17 +54,4 @@ public class MaxFunction implements Function {
         return s.toString();
     }
 
-//    public List<Value> getValue(Spreadsheet spreadsheet) {
-//        double max = 0;
-//        for (Operand operand: this.elements) {
-//            for (Value value: operand.getValue(spreadsheet)) {
-//                double candidate = ((NumericalValue) value).getNumber();
-//                if (max < candidate)
-//                    max = candidate;
-//            }
-//        }
-//        List<Value> res = new ArrayList<>();
-//        res.add(new NumericalValue(max));
-//        return res;
-//    }
 }
