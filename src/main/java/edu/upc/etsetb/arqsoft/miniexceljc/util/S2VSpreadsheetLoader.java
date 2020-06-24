@@ -4,9 +4,9 @@ import edu.upc.etsetb.arqsoft.miniexceljc.client.text.InvalidInputException;
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.ContentSpec;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Content;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Coordinate;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Spreadsheet;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Content;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Coordinate;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Spreadsheet;
 
 import java.io.File;
 import java.io.FileNotFoundException;

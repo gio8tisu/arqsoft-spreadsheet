@@ -1,6 +1,6 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.util;
 
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Spreadsheet;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Spreadsheet;
 
 import java.io.IOException;
 

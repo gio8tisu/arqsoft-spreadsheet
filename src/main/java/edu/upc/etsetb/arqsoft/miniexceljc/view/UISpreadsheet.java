@@ -1,7 +1,7 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.view;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Value;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Value;
 
 public interface UISpreadsheet {
     String getValueAt(int row, int col);

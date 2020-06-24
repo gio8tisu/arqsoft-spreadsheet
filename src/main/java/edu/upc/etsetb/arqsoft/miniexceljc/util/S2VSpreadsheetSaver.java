@@ -1,9 +1,9 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.util;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Cell;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Coordinate;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Spreadsheet;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Cell;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Coordinate;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Spreadsheet;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -20,7 +20,7 @@ public class S2VSpreadsheetSaver extends SpreadsheetSaver {
             for (int j = 0; j <= limit.getMaxColumn(); j++) {
                 coordinateSpec = new CoordinateSpec(
                         i, AlphabeticRadixConverter.toAlphabeticRadix(j));
-                coordinate = factory.createSpreadsheetCoordinate(coordinateSpec, spreadsheet);
+                coordinate = factory.createCoordinate(coordinateSpec);
                 cell = spreadsheet.getCell(coordinate);
                 if (cell != null)
                     writer.write(cell.getContent().toString());

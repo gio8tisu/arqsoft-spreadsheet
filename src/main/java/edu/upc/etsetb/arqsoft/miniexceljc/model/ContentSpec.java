@@ -1,7 +1,5 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.model;
 
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.CellType;
-
 public class ContentSpec implements Spec {
     private String content;
 

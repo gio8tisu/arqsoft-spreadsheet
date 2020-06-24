@@ -2,16 +2,18 @@ package edu.upc.etsetb.arqsoft.miniexceljc.client;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.*;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Cell;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Content;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Coordinate;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Spreadsheet;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Cell;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Content;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Coordinate;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Spreadsheet;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.NumericalContentChecker;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.SpreadsheetLoader;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.SpreadsheetSaver;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.TextContentChecker;
 import edu.upc.etsetb.arqsoft.miniexceljc.view.UIFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.view.UISpreadsheet;
+import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
+import edu.upc.etsetb.arqsoft.miniexceljc.visitors.impl.FormulaVisitorImpl;
 
 import java.io.IOException;
 import java.util.Map;
@@ -48,11 +50,11 @@ public class SpreadsheetController {
     }
 
     public void addCell(CoordinateSpec coordinateSpec, ContentSpec contentSpec) {
-        Coordinate coordinate = factory.createSpreadsheetCoordinate(coordinateSpec, spreadsheet);
+        Coordinate coordinate = factory.createCoordinate(coordinateSpec);
         Content content = factory.createContent(contentSpec);
         Cell cell = factory.createCell(content);
         this.spreadsheet.setCell(coordinate, cell);
-        this.uiSpreadsheet.setValueAt(coordinate.getRow(), coordinate.getColumnAsNum(), cell.getValue());
+        // TODO: Update view.
     }
 
     public void saveSpreadsheet() throws FilenameNotSetException {
@@ -67,16 +69,7 @@ public class SpreadsheetController {
 
     public void loadSpreadsheet(String filename) throws IOException {
         this.spreadsheet = spreadsheetLoader.load(filename);
-        refreshUISpreadsheet();
-    }
-
-    private void refreshUISpreadsheet() {
-        this.uiSpreadsheet.resetCells();
-        for (Map.Entry<Coordinate, Cell> entry : this.spreadsheet.getCells().entrySet()) {
-            Coordinate coordinate = entry.getKey();
-            Cell cell = entry.getValue();
-            this.uiSpreadsheet.setValueAt(coordinate.getRow(), coordinate.getColumnAsNum(), cell.getValue());
-        }
+        // TODO: Update view.
     }
 
 }

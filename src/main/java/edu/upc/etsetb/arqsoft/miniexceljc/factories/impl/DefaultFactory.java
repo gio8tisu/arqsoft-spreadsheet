@@ -6,20 +6,21 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.factories.impl;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Coordinate;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.NumericalValue;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.functions.*;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.functions.impl.MaxFunction;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.functions.impl.MinFunction;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.functions.impl.PromedioFunction;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.functions.impl.SumaFunction;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.*;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.impl.*;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Spreadsheet;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.functions.*;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.functions.impl.*;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.*;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.impl.*;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.impl.Number;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.PostFixGeneratorImpl;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.SyntaxCheckerImpl;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.TokenImpl;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.TokenizerImpl;
+import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
+import edu.upc.etsetb.arqsoft.miniexceljc.visitors.impl.FormulaVisitorImpl;
 
 import java.util.List;
 
@@ -52,13 +53,13 @@ public class DefaultFactory extends SpreadsheetFactory {
     @Override
     public Operator createOperator(String opText) throws BadArgumentException {
         switch (opText) {
-            case "sum":
-                return new SumOperator();
-            case "subs":
+            case "+":
+                return new AddOperator();
+            case "-":
                 return new SubsOperator();
-            case "mult":
+            case "*":
                 return new MultOperator();
-            case "div":
+            case "/":
                 return new DivOperator();
         }
         throw new BadArgumentException("Unknown operator.");
@@ -81,22 +82,27 @@ public class DefaultFactory extends SpreadsheetFactory {
 
     @Override
     public Operand createCellsRange(CoordinateSpec cCoord1, CoordinateSpec cCoord2) throws BadArgumentException {
-        return new RangeOperand(createCoordinate(cCoord1), createCoordinate(cCoord2));
+        return new CellsRange(createCoordinate(cCoord1), createCoordinate(cCoord2));
     }
 
     @Override
-    public Operand createNumber(double value) throws BadArgumentException {
-        return new NumericalValue(value);
+    public Operand createNumber(String value) throws BadArgumentException {
+        return new Number(value);
     }
 
     @Override
     public Operand createExpression(List<ExpressionComponent> expr) {
-        throw new UnsupportedOperationException("createExpression() not supported yet.");
+        return new PostFixExpression(expr);
+    }
+
+    @Override
+    public FormulaVisitor createFormulaVisitor(Spreadsheet spreadsheet, Coordinate startCoordinate) {
+        return new FormulaVisitorImpl(spreadsheet, startCoordinate);
     }
 
     @Override
     public FunctionsRegister createFunctionsRegister() {
-        throw new UnsupportedOperationException("createFunctionsRegister() not supported yet.");
+        return new FunctionsRegisterImpl();
     }
 
 }

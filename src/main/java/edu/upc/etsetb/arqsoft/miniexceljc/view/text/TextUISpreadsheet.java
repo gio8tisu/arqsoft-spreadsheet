@@ -2,8 +2,8 @@ package edu.upc.etsetb.arqsoft.miniexceljc.view.text;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Coordinate;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.Value;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Coordinate;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.Value;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.AlphabeticRadixConverter;
 import edu.upc.etsetb.arqsoft.miniexceljc.view.UISpreadsheet;
 

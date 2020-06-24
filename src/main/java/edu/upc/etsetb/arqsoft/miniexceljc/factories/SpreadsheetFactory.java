@@ -7,14 +7,15 @@ package edu.upc.etsetb.arqsoft.miniexceljc.factories;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.impl.DefaultFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.*;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.*;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.functions.FunctionsRegister;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.BadArgumentException;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.ExpressionComponent;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.Operand;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.domain.operands.Operator;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.functions.FunctionsRegister;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.BadArgumentException;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.ExpressionComponent;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.Operand;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.Operator;
+import edu.upc.etsetb.arqsoft.miniexceljc.model.operands.impl.Number;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.*;
+import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 
 import java.util.List;
 
@@ -180,7 +181,7 @@ public abstract class SpreadsheetFactory {
      * @throws BadArgumentException if the string passed does not represent any 
      * number
      */
-    public abstract Operand createNumber(double value) throws BadArgumentException ;
+    public abstract Operand createNumber(String value) throws BadArgumentException ;
     
     /**
      * Creates an expression of operands and operators (expression components).
@@ -199,10 +200,12 @@ public abstract class SpreadsheetFactory {
             throw new UnsupportedOperationException("Cannot create formula content");
         } else if (spec.getType() == CellType.NUMERICAL) {
             // Assume numerical content.
-            return new NumericalContent(Float.parseFloat(spec.getContent()));
+            return new NumericalContent(new Number(spec.getContent()));
         }
         throw new UnsupportedOperationException("Unknown cell type");
     }
+
+    abstract public FormulaVisitor createFormulaVisitor(Spreadsheet spreadsheet, Coordinate startCoordinate);
 
     public Spreadsheet createSpreadSheet() {
         return new Spreadsheet();
@@ -210,10 +213,6 @@ public abstract class SpreadsheetFactory {
 
     public Coordinate createCoordinate(CoordinateSpec spec){
         return new Coordinate(spec.getRow(), spec.getColumn());
-    }
-
-    public SpreadSheetCoordinate createSpreadsheetCoordinate(CoordinateSpec spec, Spreadsheet spreadsheet){
-        return new SpreadSheetCoordinate(spec.getRow(), spec.getColumn(), spreadsheet);
     }
 
     public Cell createCell(Content content) {
