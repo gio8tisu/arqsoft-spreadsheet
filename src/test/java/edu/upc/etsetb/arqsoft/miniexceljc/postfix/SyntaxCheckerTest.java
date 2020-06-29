@@ -1,11 +1,7 @@
-package edu.upc.etsetb.arqsoft.miniexceljc.postfix;/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package edu.upc.etsetb.arqsoft.miniexceljc.postfix;
+
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.UnkownFactoryException;
-import edu.upc.etsetb.arqsoft.miniexceljc.postfix.impl.SyntaxCheckerImpl;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -63,7 +59,7 @@ public class SyntaxCheckerTest {
             try {
                 parser.check(input);
                 fail("Exception not thrown" + input);
-            } catch (SyntaxException e) {
+            } catch (SyntaxException ignore) {
             }
         }
     }
