@@ -45,13 +45,13 @@ public class Spreadsheet {
         }
     }
 
-    private void removeSubscriber(Coordinate subscriber) {
+    public void removeSubscriber(Coordinate subscriber) {
         for (Set<Coordinate> subscribers: this.subscriptions.values()) {
             subscribers.remove(subscriber);
         }
     }
 
     public Value getCellValue(Coordinate coordinate) {
-        return null;
+        return cells.get(coordinate).getContent().getValue();
     }
 }
