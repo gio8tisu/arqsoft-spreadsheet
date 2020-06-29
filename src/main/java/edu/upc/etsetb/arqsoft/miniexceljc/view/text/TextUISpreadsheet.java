@@ -30,10 +30,7 @@ public class TextUISpreadsheet implements UISpreadsheet {
     }
 
     @Override
-    public void setValueAt(int r, int col, Value value) {
-        String c = AlphabeticRadixConverter.toAlphabeticRadix(col);
-        CoordinateSpec spec = new CoordinateSpec(r,c);
-        Coordinate coordinate = spreadsheetFactory.createCoordinate(spec);
+    public void setValueAt(Coordinate coordinate, Value value) {
         this.cells.put(coordinate, value.toString());
     }
 
