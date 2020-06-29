@@ -9,15 +9,14 @@ import edu.upc.etsetb.arqsoft.miniexceljc.client.Client;
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.impl.DefaultFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.functions.FunctionsRegister;
-import edu.upc.etsetb.arqsoft.miniexceljc.operands.BadArgumentException;
-import edu.upc.etsetb.arqsoft.miniexceljc.operands.ExpressionComponent;
-import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operand;
-import edu.upc.etsetb.arqsoft.miniexceljc.operands.Operator;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.operands.impl.Number;
+import edu.upc.etsetb.arqsoft.miniexceljc.operands.impl.PostFixExpression;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 
+import java.text.Normalizer;
 import java.util.List;
 
 /**
@@ -64,7 +63,9 @@ import java.util.List;
  * @author Juan Carlos Cruellas
  */
 public abstract class SpreadsheetFactory {
-    
+
+    protected PostFixGenerator postFixGenerator;
+
     /**
      * Static method for creating and returning a concrete factory implemented by a 
      * subclass of SpreadsheetFactory.
@@ -82,7 +83,7 @@ public abstract class SpreadsheetFactory {
         if (which.toUpperCase().equals("DEFAULT")) {
             return new DefaultFactory();
         } else {
-            throw new UnkownFactoryException("Unknown factory code \'" + which + "\'.");
+            throw new UnkownFactoryException("Unknown factory code '" + which + "'.");
         }
     }
 
@@ -153,23 +154,6 @@ public abstract class SpreadsheetFactory {
     public abstract Operand createFunction(String funcName)
             throws BadArgumentException;
 
-    /**
-     * Creates a Range object.
-     * 
-     * @param range a string representing the range
-     * @return the Range object created
-     * 
-     * @throws BadArgumentException if the string passed as argument does not 
-     * correspond to any cells range.
-     */
-    /**
-     * Creates a Range object.
-     * @param cCoord1 the cell coordinate of the first limit of the range
-     * @param cCoord2 the cell coordinate of the second limit of the range
-     * @return the Range object created
-     * @throws BadArgumentException if some of the strings passed as argument does not 
-     * correspond to a cell coordinate.
-     */
     public Operand createCellsRange(String cCoord1, String cCoord2) throws BadArgumentException {
         String col1 = cCoord1.substring(0, 1);
         int row1 = Integer.parseInt(cCoord1.substring(1));
@@ -205,16 +189,25 @@ public abstract class SpreadsheetFactory {
      */
     public abstract Operand createExpression(List<ExpressionComponent> expr)  ;
 
-    public Content createContent(ContentSpec spec) {
-        if (spec.getType() == CellType.TEXT) {
-            return new TextContent(spec.getContent());
-        } else if (spec.getType() == CellType.FORMULA) {
-            return new FormulaContent(spec.getContent());
-        } else if (spec.getType() == CellType.NUMERICAL) {
-            // Assume numerical content.
-            return new NumericalContent(spec.getContent());
+    public Content createContent(ContentSpec spec) throws ExpressionException {
+        Content content;
+        switch (spec.getType()) {
+            case TEXT:
+                content = new TextContent(spec.getContent());
+                break;
+            case FORMULA:
+                content = new FormulaContent(spec.getContent());
+                postFixGenerator.generateFromString(spec.getContent().substring(1));
+                Expression expr = (Expression) this.createExpression(postFixGenerator.getResultQueue());
+                ((FormulaContent) content).setExpression(expr);
+                break;
+            case NUMERICAL:
+                content = new NumericalContent(spec.getContent());
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown cell type");
         }
-        throw new UnsupportedOperationException("Unknown cell type");
+        return content;
     }
 
     abstract public FormulaVisitor createFormulaVisitor(Spreadsheet spreadsheet, Coordinate startCoordinate);

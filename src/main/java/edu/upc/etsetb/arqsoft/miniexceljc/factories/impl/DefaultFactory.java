@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.upc.etsetb.arqsoft.miniexceljc.factories.impl;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.client.Client;
@@ -28,12 +23,14 @@ import edu.upc.etsetb.arqsoft.miniexceljc.visitors.impl.PostFixFormulaVisitor;
 import java.util.List;
 
 public class DefaultFactory extends SpreadsheetFactory {
+    public DefaultFactory() {
+        this.postFixGenerator = this.createPostFixGenerator();
+    }
 
     @Override
     public Token createToken(TokenType tokenType, String tokenText) throws UnknownTokenTypeException {
-        if (!(tokenType instanceof TokenType)) {
-            throw new UnknownTokenTypeException("The object passed as argument, whose class is \'"
-                    + tokenType.getClass().getName() + "\' is an unknown token type");
+        if (tokenType == null) {
+            throw new UnknownTokenTypeException("The object passed as argument, is an unknown token type");
         }
         return TokenImpl.getInstance(tokenType, tokenText);
     }
@@ -84,12 +81,12 @@ public class DefaultFactory extends SpreadsheetFactory {
     }
 
     @Override
-    public Operand createCellsRange(CoordinateSpec cCoord1, CoordinateSpec cCoord2) throws BadArgumentException {
+    public Operand createCellsRange(CoordinateSpec cCoord1, CoordinateSpec cCoord2) {
         return new CellsRange(createCoordinate(cCoord1), createCoordinate(cCoord2));
     }
 
     @Override
-    public Operand createNumber(String value) throws BadArgumentException {
+    public Operand createNumber(String value) {
         return new Number(value);
     }
 
