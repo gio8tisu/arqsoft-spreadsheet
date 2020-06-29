@@ -10,6 +10,14 @@ public abstract class Content implements VisitedElement {
         this.content = content;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public Value getValue() {
         return this.value;
     }
