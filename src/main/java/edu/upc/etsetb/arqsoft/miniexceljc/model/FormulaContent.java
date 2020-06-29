@@ -4,19 +4,23 @@ import edu.upc.etsetb.arqsoft.miniexceljc.operands.Expression;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.*;
 
 public class FormulaContent extends Content implements Subscriber {
-    Expression expression;
+    private Expression expression;
 
     public FormulaContent(String content) {
         super(content);
     }
 
-    @Override
-    public Value accept(FormulaVisitor v) throws NotComputableException, CircularReferenceException {
-        return v.visitFormulaContent(this);
+    public void setExpression(Expression expression) {
+        this.expression = expression;
     }
 
     public Expression getExpression() {
         return expression;
+    }
+
+    @Override
+    public Value accept(FormulaVisitor v) throws NotComputableException, CircularReferenceException {
+        return v.visitFormulaContent(this);
     }
 
     @Override
