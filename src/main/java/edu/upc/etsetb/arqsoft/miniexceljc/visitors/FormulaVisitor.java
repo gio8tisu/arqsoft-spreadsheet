@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 public interface FormulaVisitor {
-    Map getValues() ;
+    Map<Coordinate, Value> getPreviousValues();
 
     void addValues(Coordinate cc, Value v) ;
 

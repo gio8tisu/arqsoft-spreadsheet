@@ -20,23 +20,23 @@ public class PostFixFormulaVisitor implements FormulaVisitor {
     Spreadsheet spreadsheet;
     Coordinate startCoordinate;
     Coordinate currentCoordinate;
-    Map<Coordinate, Value> values;
+    Map<Coordinate, Value> previousValues;
 
     public PostFixFormulaVisitor(Spreadsheet spreadsheet, Coordinate startCoordinate) {
         this.spreadsheet = spreadsheet;
         this.startCoordinate = startCoordinate;
-        this.values = new HashMap<>();
+        this.previousValues = new HashMap<>();
     }
 
     @Override
-    public Map getValues() {
-        return values;
+    public Map<Coordinate, Value> getPreviousValues() {
+        return previousValues;
     }
 
     @Override
     public void addValues(Coordinate cc, Value v) {
-        if (!this.values.containsKey(cc)) {
-            this.values.put(cc, v);
+        if (!this.previousValues.containsKey(cc)) {
+            this.previousValues.put(cc, v);
         }
     }
 
