@@ -13,13 +13,8 @@ package visitors #CCCCCC{
   interface FormulaVisitor
   interface VisitedElem
   package visitors.impl #EEEEEE {
-    class FormulaCalcVisitor
+    class PostFixFormulaVisitor
   }
-}
-
-package subscribers  #CCCCCC{
-  interface Subscriber
-  class CellDependencies
 }
 
 package util #CCCCCC {
@@ -28,17 +23,22 @@ package util #CCCCCC {
   class S2VSpreadsheetLoader
   class S2VSpreadsheetSaver
   interface InputChecker
+  class CoordinateChecker
+  class FormulaContentChecker
+  class NumericalContentChecker
+  class TextContentChecker
 }
 
 package model #CCCCCC {
+  interface Content
+  interface Value
+  interface Subscriber
   class Spreadsheet
   class Coordinate
   class Cell
-  interface Content
   class NumericalContent
   class TextContent
   class FormulaContent
-  interface Value
   class TextValue
   class NumericalValue
 }
@@ -50,12 +50,13 @@ interface Operand
 interface Expression
 
   package operands.impl #EEEEEE {
-    class CellsRange
     class PostFixExpression
+    class CellsRange
+    class DivOperator
     class AddOperator
     class SubsOperator
     class MultOperator
-    class DivOperator
+    class Number
   }
 }
 
@@ -65,7 +66,7 @@ package functions #CCCCCC {
   package functions.impl #EEEEEE {
     class FunctionsRegisterImpl
     class SumaFunction
-    class PromedioFunction
+    class MeanFunction
     class MinFunction
     class MaxFunction
   }
@@ -88,7 +89,7 @@ package postfix #CCCCCC {
     class TokenizerImpl
     class SyntaxCheckerImpl
     class PostFixGeneratorImpl
-    }
+   }
 }
 
 package view #CCCCCC {
@@ -99,7 +100,7 @@ package view #CCCCCC {
     class TextUIFactory
     class TextUIRenderer
     class TextUISpreadsheet
-    }
+   }
 }
 
 
@@ -116,8 +117,12 @@ SpreadsheetController --> "1" SpreadsheetSaver
 Client --> "1" UIRenderer
 Client --> "1" UISpreadsheet
 Client --> "1" SpreadsheetController
-Client --> InputChecker
 Client <|-- TextClient
+Client --> InputChecker
+InputChecker <|-- CoordinateChecker
+InputChecker <|-- NumericalContentChecker
+InputChecker <|-- FormulaContentChecker
+InputChecker <|-- TextContentChecker
 
 /' ----- view ----- '/
 UIRenderer <|-- TextUIRenderer
@@ -125,8 +130,8 @@ UISpreadsheet <|-- TextUISpreadsheet
 UIFactory <|-- TextUIFactory
 
 /' ----- visitors ----- '/
-FormulaCalcVisitor -up-|> FormulaVisitor
-FormulaCalcVisitor --> Spreadsheet
+PostFixFormulaVisitor --|> FormulaVisitor
+PostFixFormulaVisitor --> Spreadsheet
 FormulaVisitor <-- Coordinate
 
 VisitedElem --> FormulaVisitor
@@ -134,10 +139,7 @@ VisitedElem --> FormulaVisitor
 Content --|> VisitedElem
 Operand --|> VisitedElem
 
-
-/' ----- subscribers ----- '/
 Subscriber --> FormulaVisitor
-CellDependencies --> Coordinate
 
 
 /' ----- loading/saving ----- '/
@@ -149,19 +151,19 @@ SpreadsheetLoader ..> Spreadsheet
 
 /' ----- operands ----- '/
 SpreadsheetFactory --> ExpressionComponent
-Operator -up-|> ExpressionComponent
-Operand -up-|> ExpressionComponent
+Operator --|> ExpressionComponent
+Operand --|> ExpressionComponent
 Expression --|> Operand
 Expression o--> "1..*" ExpressionComponent
 
-NumericalValue -up-|> Operand
-CellsRange -up-|> Operand
+NumericalValue --|> Operand
+CellsRange --|> Operand
 Coordinate --|> Operand
-PostFixExpression -up-|>  Expression
-AddOperator -up-|>  Operator
-SubsOperator -up-|>  Operator
-MultOperator -up-|>  Operator
-DivOperator -up-|>  Operator
+PostFixExpression --|>  Expression
+AddOperator --|>  Operator
+SubsOperator --|>  Operator
+MultOperator --|>  Operator
+DivOperator --|>  Operator
 
 PostFixExpression --> FormulaVisitor
 Number --> FormulaVisitor
@@ -173,17 +175,16 @@ CellsRange o--> "1..*" Coordinate
 /' ----- model ----- '/
 Spreadsheet --> "1" PostFixGenerator
 Spreadsheet "1" -- "1" FormulaVisitor
-Spreadsheet --> "0..*" CellDependencies
 Spreadsheet --> "0..*" Cell
 
-NumericalContent -up-|> Content
-TextContent -up-|> Content
-FormulaContent -right-|> Content
-FormulaContent ..|> Subscriber
-Content ..|> VisitedElem
+NumericalContent --|> Content
+TextContent --|> Content
+FormulaContent --|> Content
+FormulaContent --|> Subscriber
+Content --|> VisitedElem
 
-NumericalContent --> "1" Number
-FormulaContent --> "1" Expression
+NumericalContent --> Number
+FormulaContent --> Expression
 
 Value <|-- NumericalValue
 Value <|-- TextValue
@@ -191,20 +192,18 @@ Value <|-- TextValue
 /' ----- functions ----- '/
 SpreadsheetFactory --> FunctionsRegister
 PostFixGenerator --> FunctionsRegister
-FunctionsRegisterImpl -up-|> FunctionsRegister
+FunctionsRegisterImpl --|> FunctionsRegister
 
 Operand ..> FormulaVisitor
 Function --|> Operand
-SumaFunction -up-|> Function
-MinFunction -up-|> Function
-MaxFunction -up-|> Function
-PromedioFunction -up-|> Function
+SumaFunction --|> Function
+MinFunction --|> Function
+MaxFunction --|> Function
+MeanFunction --|> Function
 
 
 /' ----- factories ----- '/
-
-DefaultFactory -down-|> SpreadsheetFactory
-SpreadsheetFactory --> Spreadsheet
+DefaultFactory --|> SpreadsheetFactory
 
 /' ----- postfix ----- '/
 SpreadsheetFactory -- PostFixGenerator
@@ -214,9 +213,9 @@ SpreadsheetFactory --> Token
 PostFixGenerator --> SyntaxChecker
 SyntaxChecker --> Tokenizer
 Tokenizer --> Token
-PostFixGeneratorImpl -up-|> PostFixGenerator
-SyntaxCheckerImpl -up-|> SyntaxChecker
-TokenizerImpl -up-|> Tokenizer
-TokenImpl -up-|> Token
+PostFixGeneratorImpl --|> PostFixGenerator
+SyntaxCheckerImpl --|> SyntaxChecker
+TokenizerImpl --|> Tokenizer
+TokenImpl --|> Token
 
 @enduml
