@@ -46,10 +46,18 @@ public class TextUIRenderer implements UIRenderer {
         builder.delete(0,builder.length());
     }
 
+    public int getRowOffset() {
+        return rowOffset;
+    }
+
+    public int getColumnOffset() {
+        return columnOffset;
+    }
+
     @Override
     public void moveView(int rowIncrement, int columnIncrement) {
-        this.rowOffset += rowIncrement - 1;
-        this.rowMax += rowIncrement - 1;
+        this.rowOffset += rowIncrement;
+        this.rowMax += rowIncrement;
         this.columnOffset += columnIncrement;
         this.columnMax += columnIncrement;
     }

@@ -180,7 +180,9 @@ public class TextClient extends Client {
         CoordinateSpec coordinate = this.getCoordinateFromUser();
         int column = AlphabeticRadixConverter.fromAlphabeticRadix(coordinate.getColumn());
         int row = coordinate.getRow();
-        this.renderer.moveView(row, column);
+        int columnIncrement = column - renderer.getColumnOffset();
+        int rowIncrement = row - renderer.getRowOffset();
+        this.renderer.moveView(rowIncrement, columnIncrement);
     }
 
 }
