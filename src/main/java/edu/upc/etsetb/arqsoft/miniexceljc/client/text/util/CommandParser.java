@@ -34,6 +34,10 @@ public class CommandParser {
             case "h":
                 res = Command.HELP;
                 break;
+            case "move":
+            case "m":
+                res = Command.MOVE_VIEW;
+                break;
             default:
                 throw new IllegalCommandException(command + "command not known.");
         }
