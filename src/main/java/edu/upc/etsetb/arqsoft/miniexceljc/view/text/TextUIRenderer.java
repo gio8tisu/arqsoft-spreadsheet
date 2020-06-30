@@ -61,4 +61,10 @@ public class TextUIRenderer implements UIRenderer {
     public void setColumnMax(int columnMax) {
         this.columnMax = columnMax;
     }
+
+    @Override
+    public void setOffset(int rowOffset, int columnOffset) {
+        this.rowOffset = rowOffset;
+        this.columnOffset = columnOffset;
+    }
 }

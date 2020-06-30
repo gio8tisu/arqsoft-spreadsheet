@@ -9,6 +9,7 @@ import edu.upc.etsetb.arqsoft.miniexceljc.model.ContentSpec;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.ExpressionException;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.SyntaxChecker;
+import edu.upc.etsetb.arqsoft.miniexceljc.util.AlphabeticRadixConverter;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 
@@ -62,6 +63,9 @@ public class TextClient extends Client {
                     return false;
                 case LOAD:
                     load();
+                    return false;
+                case MOVE_VIEW:
+                    moveView();
                     return false;
                 case QUIT:
                     return true;
@@ -170,6 +174,13 @@ public class TextClient extends Client {
             System.out.println("Input is not valid: " + e.getMessage());
         }
         return getCellContentFromUser();
+    }
+
+    private void moveView() {
+        CoordinateSpec coordinate = this.getCoordinateFromUser();
+        int column = AlphabeticRadixConverter.fromAlphabeticRadix(coordinate.getColumn());
+        int row = coordinate.getRow();
+        this.renderer.setOffset(row, column);
     }
 
 }
