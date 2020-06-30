@@ -25,6 +25,7 @@ import java.util.List;
 public class DefaultFactory extends SpreadsheetFactory {
     public DefaultFactory() {
         this.postFixGenerator = this.createPostFixGenerator();
+        postFixGenerator.setFactory(this);
     }
 
     @Override
@@ -51,8 +52,8 @@ public class DefaultFactory extends SpreadsheetFactory {
     }
 
     @Override
-    public Operator createOperator(String opText) throws BadArgumentException {
-        switch (opText) {
+    public Operator createOperator(String operator) throws BadArgumentException {
+        switch (operator) {
             case "+":
                 return new AddOperator();
             case "-":
@@ -66,8 +67,8 @@ public class DefaultFactory extends SpreadsheetFactory {
     }
 
     @Override
-    public Operand createFunction(String funcName) throws BadArgumentException {
-        switch (funcName) {
+    public Operand createFunction(String function) throws BadArgumentException {
+        switch (function) {
             case "SUMA":
                 return new SumaFunction();
             case "MIN":
