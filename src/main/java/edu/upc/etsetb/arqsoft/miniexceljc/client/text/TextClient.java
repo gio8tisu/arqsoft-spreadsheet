@@ -149,7 +149,7 @@ public class TextClient extends Client {
     }
 
     private CoordinateSpec getCoordinateFromUser() {
-        System.out.println("Introduce coordinate (<column> <row>)");
+        System.out.println("Introduce coordinate (<column><row>)");
         String coordinate = scanner.nextLine();
         try {
             return coordinateChecker.checkInput(coordinate);

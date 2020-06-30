@@ -6,6 +6,7 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.factories;
 
 import edu.upc.etsetb.arqsoft.miniexceljc.client.Client;
+import edu.upc.etsetb.arqsoft.miniexceljc.client.text.InvalidInputException;
 import edu.upc.etsetb.arqsoft.miniexceljc.factories.impl.DefaultFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.functions.FunctionsRegister;
@@ -62,6 +63,7 @@ import java.util.List;
 public abstract class SpreadsheetFactory {
 
     protected PostFixGenerator postFixGenerator;
+    protected InputChecker coordinateChecker;
 
     /**
      * Static method for creating and returning a concrete factory implemented by a 
@@ -215,10 +217,8 @@ public abstract class SpreadsheetFactory {
         return new Spreadsheet();
     }
 
-    public Operand createCellCoordinate(String c) {
-        String col = c.substring(0, 1);
-        int row = Integer.parseInt(c.substring(1));
-        CoordinateSpec spec = new CoordinateSpec(row, col);
+    public Operand createCellCoordinate(String c) throws InvalidInputException {
+        CoordinateSpec spec = (CoordinateSpec) this.coordinateChecker.checkInput(c);
         return createCoordinate(spec);
     }
 

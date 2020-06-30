@@ -26,6 +26,7 @@ public class DefaultFactory extends SpreadsheetFactory {
     public DefaultFactory() {
         this.postFixGenerator = this.createPostFixGenerator();
         postFixGenerator.setFactory(this);
+        this.coordinateChecker = this.createCoordinateChecker();
     }
 
     @Override
