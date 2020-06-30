@@ -34,8 +34,8 @@ public class CommandParser {
             case "h":
                 res = Command.HELP;
                 break;
-            case "move":
-            case "m":
+            case "move view":
+            case "mv":
                 res = Command.MOVE_VIEW;
                 break;
             default:

@@ -4,11 +4,9 @@ import edu.upc.etsetb.arqsoft.miniexceljc.client.Client;
 import edu.upc.etsetb.arqsoft.miniexceljc.client.FilenameNotSetException;
 import edu.upc.etsetb.arqsoft.miniexceljc.client.text.util.CommandParser;
 import edu.upc.etsetb.arqsoft.miniexceljc.client.text.util.IllegalCommandException;
-import edu.upc.etsetb.arqsoft.miniexceljc.model.Content;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.ContentSpec;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.ExpressionException;
-import edu.upc.etsetb.arqsoft.miniexceljc.postfix.SyntaxChecker;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.AlphabeticRadixConverter;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
@@ -35,7 +33,7 @@ public class TextClient extends Client {
         boolean end = false;
         String command;
         while (!end) {
-            System.out.println("Write command (a, r, s, sa, l, h, q)");
+            System.out.println("Write command (a, r, s, sa, l, mv, h, q)");
             command = this.scanner.nextLine();
             end = this.processCommand(command);
             renderer.render(this.spreadsheet);
@@ -111,6 +109,7 @@ public class TextClient extends Client {
         System.out.println("save (s): Save spreadsheet to file.");
         System.out.println("saveas (sa): Save spreadsheet to file as given filename.");
         System.out.println("load (l): Load spreadsheet from file.");
+        System.out.println("move view (mv): Set top left coordinate to move the view.");
         System.out.println("quit (q): Quit program.");
         System.out.println("help (h): Show this message.");
     }
@@ -180,7 +179,7 @@ public class TextClient extends Client {
         CoordinateSpec coordinate = this.getCoordinateFromUser();
         int column = AlphabeticRadixConverter.fromAlphabeticRadix(coordinate.getColumn());
         int row = coordinate.getRow();
-        this.renderer.setOffset(row, column);
+        this.renderer.moveView(row, column);
     }
 
 }

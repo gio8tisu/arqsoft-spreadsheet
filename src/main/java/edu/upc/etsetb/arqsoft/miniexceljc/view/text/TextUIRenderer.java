@@ -46,25 +46,11 @@ public class TextUIRenderer implements UIRenderer {
         builder.delete(0,builder.length());
     }
 
-    public void setRowOffset(int rowOffset) {
-        this.rowOffset = rowOffset;
-    }
-
-    public void setColumnOffset(int columnOffset) {
-        this.columnOffset = columnOffset;
-    }
-
-    public void setRowMax(int rowMax) {
-        this.rowMax = rowMax;
-    }
-
-    public void setColumnMax(int columnMax) {
-        this.columnMax = columnMax;
-    }
-
     @Override
-    public void setOffset(int rowOffset, int columnOffset) {
-        this.rowOffset = rowOffset;
-        this.columnOffset = columnOffset;
+    public void moveView(int rowIncrement, int columnIncrement) {
+        this.rowOffset += rowIncrement - 1;
+        this.rowMax += rowIncrement - 1;
+        this.columnOffset += columnIncrement;
+        this.columnMax += columnIncrement;
     }
 }
