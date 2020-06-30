@@ -1,0 +1,221 @@
+@startuml
+
+package client #CCCCCC {
+  class SpreadsheetController
+  abstract class Client
+  package text #EEEEEE {
+    class TextClient
+    class Command
+  }
+}
+
+package visitors #CCCCCC{
+  interface FormulaVisitor
+  interface VisitedElem
+  package visitors.impl #EEEEEE {
+    class PostFixFormulaVisitor
+  }
+}
+
+package util #CCCCCC {
+  interface SpreadsheetLoader
+  interface SpreadsheetSaver
+  class S2VSpreadsheetLoader
+  class S2VSpreadsheetSaver
+  interface InputChecker
+  class CoordinateChecker
+  class FormulaContentChecker
+  class NumericalContentChecker
+  class TextContentChecker
+}
+
+package model #CCCCCC {
+  interface Content
+  interface Value
+  interface Subscriber
+  class Spreadsheet
+  class Coordinate
+  class Cell
+  class NumericalContent
+  class TextContent
+  class FormulaContent
+  class TextValue
+  class NumericalValue
+}
+
+package operands #CCCCCC {
+interface ExpressionComponent
+interface Operator
+interface Operand
+interface Expression
+
+  package operands.impl #EEEEEE {
+    class PostFixExpression
+    class CellsRange
+    class DivOperator
+    class AddOperator
+    class SubsOperator
+    class MultOperator
+    class Number
+  }
+}
+
+package functions #CCCCCC {
+  interface FunctionsRegister
+  interface Function
+  package functions.impl #EEEEEE {
+    class FunctionsRegisterImpl
+    class SumaFunction
+    class MeanFunction
+    class MinFunction
+    class MaxFunction
+  }
+}
+
+package factories #CCCCCC {
+  abstract SpreadsheetFactory
+  package factories.impl #EEEEEE {
+    class DefaultFactory
+  }
+}
+
+package postfix #CCCCCC {
+  interface Token
+  interface Tokenizer
+  interface SyntaxChecker
+  interface PostFixGenerator
+  package postfix.impl #EEEEEE {
+    class TokenImpl
+    class TokenizerImpl
+    class SyntaxCheckerImpl
+    class PostFixGeneratorImpl
+   }
+}
+
+package view #CCCCCC {
+  interface UIFactory
+  interface UIRenderer
+  interface UISpreadsheet
+  package view.text #EEEEEE {
+    class TextUIFactory
+    class TextUIRenderer
+    class TextUISpreadsheet
+   }
+}
+
+
+/' ----- controller ----- '/
+SpreadsheetController "1" --> "1" UISpreadsheet
+SpreadsheetController --> "1" Spreadsheet
+
+SpreadsheetController --> "1" SpreadsheetFactory
+SpreadsheetController --> "1" UIFactory
+
+SpreadsheetController --> "1" SpreadsheetLoader
+SpreadsheetController --> "1" SpreadsheetSaver
+
+Client --> "1" UIRenderer
+Client --> "1" UISpreadsheet
+Client --> "1" SpreadsheetController
+Client <|-- TextClient
+Client --> InputChecker
+InputChecker <|-- CoordinateChecker
+InputChecker <|-- NumericalContentChecker
+InputChecker <|-- FormulaContentChecker
+InputChecker <|-- TextContentChecker
+
+/' ----- view ----- '/
+UIRenderer <|-- TextUIRenderer
+UISpreadsheet <|-- TextUISpreadsheet
+UIFactory <|-- TextUIFactory
+
+/' ----- visitors ----- '/
+PostFixFormulaVisitor --|> FormulaVisitor
+PostFixFormulaVisitor --> Spreadsheet
+FormulaVisitor <-- Coordinate
+
+VisitedElem --> FormulaVisitor
+
+Content --|> VisitedElem
+Operand --|> VisitedElem
+
+Subscriber --> FormulaVisitor
+
+
+/' ----- loading/saving ----- '/
+SpreadsheetSaver <|-- S2VSpreadsheetSaver
+SpreadsheetLoader <|-- S2VSpreadsheetLoader
+
+SpreadsheetSaver ..> Spreadsheet
+SpreadsheetLoader ..> Spreadsheet
+
+/' ----- operands ----- '/
+SpreadsheetFactory --> ExpressionComponent
+Operator --|> ExpressionComponent
+Operand --|> ExpressionComponent
+Expression --|> Operand
+Expression o--> "1..*" ExpressionComponent
+
+NumericalValue --|> Operand
+CellsRange --|> Operand
+Coordinate --|> Operand
+PostFixExpression --|>  Expression
+AddOperator --|>  Operator
+SubsOperator --|>  Operator
+MultOperator --|>  Operator
+DivOperator --|>  Operator
+
+PostFixExpression --> FormulaVisitor
+Number --> FormulaVisitor
+Operator --> FormulaVisitor
+
+CellsRange o--> "1..*" Coordinate
+
+
+/' ----- model ----- '/
+Spreadsheet --> "1" PostFixGenerator
+Spreadsheet "1" -- "1" FormulaVisitor
+Spreadsheet --> "0..*" Cell
+
+NumericalContent --|> Content
+TextContent --|> Content
+FormulaContent --|> Content
+FormulaContent --|> Subscriber
+Content --|> VisitedElem
+
+NumericalContent --> Number
+FormulaContent --> Expression
+
+Value <|-- NumericalValue
+Value <|-- TextValue
+
+/' ----- functions ----- '/
+SpreadsheetFactory --> FunctionsRegister
+PostFixGenerator --> FunctionsRegister
+FunctionsRegisterImpl --|> FunctionsRegister
+
+Operand ..> FormulaVisitor
+Function --|> Operand
+SumaFunction --|> Function
+MinFunction --|> Function
+MaxFunction --|> Function
+MeanFunction --|> Function
+
+
+/' ----- factories ----- '/
+DefaultFactory --|> SpreadsheetFactory
+
+/' ----- postfix ----- '/
+SpreadsheetFactory -- PostFixGenerator
+SpreadsheetFactory -- SyntaxChecker
+SpreadsheetFactory -- Tokenizer
+SpreadsheetFactory --> Token
+PostFixGenerator --> SyntaxChecker
+SyntaxChecker --> Tokenizer
+Tokenizer --> Token
+PostFixGeneratorImpl --|> PostFixGenerator
+SyntaxCheckerImpl --|> SyntaxChecker
+TokenizerImpl --|> Tokenizer
+TokenImpl --|> Token
+
+@enduml

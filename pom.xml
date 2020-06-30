@@ -20,12 +20,19 @@
             <version>5.4.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>edu.upc.arqsoft</groupId>
+            <artifactId>postfixgen_for_students</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
@@ -38,6 +45,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <archive>
                         <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
