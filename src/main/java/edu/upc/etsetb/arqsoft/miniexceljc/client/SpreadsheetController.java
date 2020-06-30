@@ -15,6 +15,7 @@ import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class SpreadsheetController {
     private SpreadsheetFactory factory;
@@ -115,8 +116,13 @@ public class SpreadsheetController {
         spreadsheetSaver.saveAs(spreadsheet, filename);
     }
 
-    public void loadSpreadsheet(String filename) throws IOException {
+    public void loadSpreadsheet(String filename) throws IOException, CircularReferenceException, NotComputableException {
         this.spreadsheet = spreadsheetLoader.load(filename);
+        for (Map.Entry<Coordinate, Cell> entry: this.spreadsheet.getCells().entrySet()) {
+            FormulaVisitor visitor = this.factory.createFormulaVisitor(this.spreadsheet, entry.getKey());
+            Content content = entry.getValue().getContent();
+            content.setValue(content.accept(visitor));
+        }
         updateUISpreadsheet();
     }
 

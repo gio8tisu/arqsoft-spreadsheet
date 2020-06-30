@@ -99,7 +99,7 @@ public class TextClient extends Client {
         String filename = this.scanner.nextLine();
         try {
             controller.loadSpreadsheet(filename);
-        } catch (IOException e) {
+        } catch (IOException | CircularReferenceException | NotComputableException e) {
             e.printStackTrace();
         }
     }
