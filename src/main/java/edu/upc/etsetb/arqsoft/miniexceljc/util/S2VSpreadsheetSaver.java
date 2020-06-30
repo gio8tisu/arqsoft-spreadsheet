@@ -22,9 +22,9 @@ public class S2VSpreadsheetSaver extends SpreadsheetSaver {
                 if (cell != null) {
                     Content content = cell.getContent();
                     if (content instanceof FormulaContent)
-                        writer.write(content.toString().replace(";", ","));
+                        writer.write(content.getContent().replace(";", ","));
                     else
-                        writer.write(content.toString());
+                        writer.write(content.getContent());
                 }
                 if (j != limit.getMaxColumn())
                     writer.write(";");

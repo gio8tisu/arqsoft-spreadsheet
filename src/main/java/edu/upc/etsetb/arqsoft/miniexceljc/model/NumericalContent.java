@@ -22,9 +22,4 @@ public class NumericalContent extends Content {
         return number;
     }
 
-    @Override
-    public String toString() {
-        return String.valueOf(number);
-    }
-
 }
