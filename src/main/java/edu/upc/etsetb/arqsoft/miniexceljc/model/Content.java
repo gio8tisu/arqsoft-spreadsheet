@@ -4,7 +4,7 @@ import edu.upc.etsetb.arqsoft.miniexceljc.visitors.VisitedElement;
 
 public abstract class Content implements VisitedElement {
     protected String content;
-    protected Value value;
+    protected Value value;  // TODO: Move to Cell class.
 
     public Content(String content) {
         this.content = content;

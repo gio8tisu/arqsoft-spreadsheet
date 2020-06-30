@@ -196,9 +196,9 @@ public abstract class SpreadsheetFactory {
                 content = new TextContent(spec.getContent());
                 break;
             case FORMULA:
-                content = new FormulaContent(spec.getContent());
                 postFixGenerator.generateFromString(spec.getContent().substring(1));
                 Expression expr = (Expression) this.createExpression(postFixGenerator.getResultQueue());
+                content = new FormulaContent(spec.getContent());
                 ((FormulaContent) content).setExpression(expr);
                 break;
             case NUMERICAL:

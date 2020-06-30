@@ -8,6 +8,7 @@ public class Spreadsheet {
 
     public Spreadsheet() {
         this.cells = new HashMap<>();
+        this.subscriptions = new HashMap<>();
     }
 
     public Map<Coordinate, Cell> getCells() {

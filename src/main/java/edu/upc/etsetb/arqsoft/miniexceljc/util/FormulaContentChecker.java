@@ -15,12 +15,8 @@ public class FormulaContentChecker implements InputChecker {
     }
 
     @Override
-    public Spec checkInput(String input) throws InvalidInputException {
-        try {
-            syntaxChecker.check(input);
-            return new ContentSpec(input, CellType.FORMULA);
-        } catch (SyntaxException e) {
-            throw new InvalidInputException(e.getMessage());
-        }
+    public ContentSpec checkInput(String input) throws InvalidInputException {
+        // syntaxChecker.check(input);
+        return new ContentSpec(input, CellType.FORMULA);
     }
 }

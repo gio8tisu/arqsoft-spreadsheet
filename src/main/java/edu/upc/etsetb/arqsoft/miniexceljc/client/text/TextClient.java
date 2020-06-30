@@ -7,7 +7,10 @@ import edu.upc.etsetb.arqsoft.miniexceljc.client.text.util.IllegalCommandExcepti
 import edu.upc.etsetb.arqsoft.miniexceljc.model.Content;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.ContentSpec;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
+import edu.upc.etsetb.arqsoft.miniexceljc.postfix.ExpressionException;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.SyntaxChecker;
+import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
+import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -77,7 +80,7 @@ public class TextClient extends Client {
         try {
             controller.saveSpreadsheet();
         } catch (FilenameNotSetException e) {
-            System.out.println("No filename associated with this spread sheet.");
+            System.out.println("No filename associated with this spreadsheet.");
             saveAs();
         }
     }
@@ -118,7 +121,11 @@ public class TextClient extends Client {
     @Override
     public void removeCell() {
         CoordinateSpec coordinateSpec = getCoordinateFromUser();
-        controller.removeCell(coordinateSpec);
+        try {
+            controller.removeCell(coordinateSpec);
+        } catch (CircularReferenceException | NotComputableException e) {
+            e.printStackTrace();
+        }
     }
 
     private void addCell(CoordinateSpec coordinateSpec, ContentSpec contentSpec) {
@@ -128,6 +135,12 @@ public class TextClient extends Client {
             System.out.println("Input is not valid: Invalid number (use quotes for text content)");
             contentSpec = getCellContentFromUser();
             addCell(coordinateSpec, contentSpec);
+        } catch (CircularReferenceException e) {
+            System.out.println("Your formula has a circular dependency. Cannot compute.");
+        } catch (NotComputableException e) {
+            System.out.println("Cannot compute.");
+        } catch (ExpressionException e) {
+            e.printStackTrace();
         }
     }
 
@@ -135,7 +148,7 @@ public class TextClient extends Client {
         System.out.println("Introduce coordinate (<column> <row>)");
         String coordinate = scanner.nextLine();
         try {
-            return (CoordinateSpec) coordinateChecker.checkInput(coordinate);
+            return coordinateChecker.checkInput(coordinate);
         } catch (InvalidInputException e) {
             System.out.println("Input is not valid: " + e.getMessage());
             return getCoordinateFromUser();
@@ -147,11 +160,11 @@ public class TextClient extends Client {
         String content = scanner.nextLine();
         try {
             if (content.startsWith("\"") | content.startsWith("'")) {
-                return  (ContentSpec) textContentChecker.checkInput(content);
+                return  textContentChecker.checkInput(content);
             } else if (content.startsWith("=")) {
-                return (ContentSpec) formulaContentChecker.checkInput(content);
+                return formulaContentChecker.checkInput(content);
             } else {  // Assume numerical content.
-                return (ContentSpec) numericalContentChecker.checkInput(content);
+                return numericalContentChecker.checkInput(content);
             }
         } catch (InvalidInputException e) {
             System.out.println("Input is not valid: " + e.getMessage());

@@ -7,7 +7,7 @@ import edu.upc.etsetb.arqsoft.miniexceljc.model.Spec;
 
 public class TextContentChecker implements InputChecker {
     @Override
-    public Spec checkInput(String input) throws InvalidInputException {
+    public ContentSpec checkInput(String input) throws InvalidInputException {
         if (input.startsWith("\"") & input.endsWith("\"") ||
                 input.startsWith("'") & input.endsWith("'"))
             return new ContentSpec(input, CellType.TEXT);

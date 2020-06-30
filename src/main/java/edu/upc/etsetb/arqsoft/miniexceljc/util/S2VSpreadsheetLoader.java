@@ -7,6 +7,7 @@ import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.Content;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.Coordinate;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.Spreadsheet;
+import edu.upc.etsetb.arqsoft.miniexceljc.postfix.ExpressionException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -49,7 +50,7 @@ public class S2VSpreadsheetLoader implements SpreadsheetLoader {
                         CoordinateSpec coordinateSpec = createCoordinateSpec(row, column);
                         Coordinate coordinate = factory.createCoordinate(coordinateSpec);
                         spreadsheet.setCell(coordinate, factory.createCell(content));
-                    } catch (InvalidInputException e) {
+                    } catch (InvalidInputException | ExpressionException e) {
                         throw new IOException(e.getMessage());
                     }
                 }

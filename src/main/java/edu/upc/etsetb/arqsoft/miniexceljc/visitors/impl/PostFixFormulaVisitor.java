@@ -206,8 +206,9 @@ public class PostFixFormulaVisitor implements FormulaVisitor {
     }
 
     @Override
-    public Value visitTextContent(TextContent content) throws NotComputableException {
-        throw new NotComputableException();
+    public Value visitTextContent(TextContent content) {
+        String text = content.getText();
+        return new TextValue(text.substring(1, text.length() - 1));
     }
 
     @Override
