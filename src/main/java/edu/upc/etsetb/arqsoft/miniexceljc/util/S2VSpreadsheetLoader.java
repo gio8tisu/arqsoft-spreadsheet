@@ -20,11 +20,15 @@ public class S2VSpreadsheetLoader implements SpreadsheetLoader {
     private SpreadsheetFactory factory;
     private TextContentChecker textContentChecker;
     private NumericalContentChecker numericalContentChecker;
+    private FormulaContentChecker formulaContentChecker;
 
-    public S2VSpreadsheetLoader(SpreadsheetFactory factory, TextContentChecker textContentChecker, NumericalContentChecker numericalContentChecker) {
+    public S2VSpreadsheetLoader(SpreadsheetFactory factory, TextContentChecker textContentChecker,
+                                NumericalContentChecker numericalContentChecker,
+                                FormulaContentChecker formulaContentChecker) {
         this.factory = factory;
         this.textContentChecker = textContentChecker;
         this.numericalContentChecker = numericalContentChecker;
+        this.formulaContentChecker = formulaContentChecker;
     }
 
     @Override
@@ -68,13 +72,13 @@ public class S2VSpreadsheetLoader implements SpreadsheetLoader {
     private ContentSpec createContentSpec(String text) throws InvalidInputException {
         ContentSpec contentSpec;
         if (text.startsWith("\"") | text.startsWith("'")) {
-            contentSpec = (ContentSpec) textContentChecker.checkInput(text);
+            contentSpec = textContentChecker.checkInput(text);
         } else if (text.startsWith("=")) {
-            throw new UnsupportedOperationException("Cannot create formula content");
+            contentSpec = formulaContentChecker.checkInput(text.replace(",", ";"));
         } else {
             // Assume numerical content.
             try {
-                contentSpec = (ContentSpec) numericalContentChecker.checkInput(text);
+                contentSpec = numericalContentChecker.checkInput(text);
             } catch (NumberFormatException e) {
                 throw new InvalidInputException("Invalid number found");
             }

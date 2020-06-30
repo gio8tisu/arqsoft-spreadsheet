@@ -26,7 +26,8 @@ public class TextClient extends Client {
 
     @Override
     public void run() {
-        controller.buildFrameWork(this.textContentChecker, this.numericalContentChecker);
+        controller.buildFrameWork(this.textContentChecker, this.numericalContentChecker,
+                this.formulaContentChecker);
         // First, display spreadsheet and help message.
         renderer.render(this.spreadsheet);
         help();

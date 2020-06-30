@@ -39,7 +39,7 @@ public abstract class Client {
             client.setFormulaContentChecker((FormulaContentChecker) factory.createFormulaContentChecker());
             client.setCoordinateChecker((CoordinateChecker) factory.createCoordinateChecker());
 
-            controller.buildFrameWork(client.textContentChecker, client.numericalContentChecker);
+            controller.buildFrameWork(client.textContentChecker, client.numericalContentChecker, client.formulaContentChecker);
             client.run();
             System.out.println("Done.");
         } catch (Exception e) {

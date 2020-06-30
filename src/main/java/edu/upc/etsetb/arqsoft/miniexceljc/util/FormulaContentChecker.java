@@ -8,15 +8,9 @@ import edu.upc.etsetb.arqsoft.miniexceljc.postfix.SyntaxChecker;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.SyntaxException;
 
 public class FormulaContentChecker implements InputChecker {
-    SyntaxChecker syntaxChecker;
-
-    public FormulaContentChecker(SyntaxChecker syntaxChecker) {
-        this.syntaxChecker = syntaxChecker;
-    }
 
     @Override
-    public ContentSpec checkInput(String input) throws InvalidInputException {
-        // syntaxChecker.check(input);
+    public ContentSpec checkInput(String input) {
         return new ContentSpec(input, CellType.FORMULA);
     }
 }

@@ -10,13 +10,10 @@ import edu.upc.etsetb.arqsoft.miniexceljc.factories.impl.DefaultFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.functions.FunctionsRegister;
 import edu.upc.etsetb.arqsoft.miniexceljc.operands.*;
-import edu.upc.etsetb.arqsoft.miniexceljc.operands.impl.Number;
-import edu.upc.etsetb.arqsoft.miniexceljc.operands.impl.PostFixExpression;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 
-import java.text.Normalizer;
 import java.util.List;
 
 /**
@@ -236,7 +233,7 @@ public abstract class SpreadsheetFactory {
     abstract public SpreadsheetSaver createSpreadSheetSaver();
 
     abstract public SpreadsheetLoader createSpreadSheetLoader(
-            TextContentChecker textContentChecker, NumericalContentChecker numericalContentChecker);
+            TextContentChecker textContentChecker, NumericalContentChecker numericalContentChecker, FormulaContentChecker formulaContentChecker);
 
     abstract public InputChecker createTextContentChecker();
 

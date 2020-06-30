@@ -111,8 +111,8 @@ public class DefaultFactory extends SpreadsheetFactory {
     }
 
     public SpreadsheetLoader createSpreadSheetLoader(TextContentChecker textContentChecker,
-                                                     NumericalContentChecker numericalContentChecker) {
-        return new S2VSpreadsheetLoader(this, textContentChecker, numericalContentChecker);
+                                                     NumericalContentChecker numericalContentChecker, FormulaContentChecker formulaContentChecker) {
+        return new S2VSpreadsheetLoader(this, textContentChecker, numericalContentChecker, formulaContentChecker);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class DefaultFactory extends SpreadsheetFactory {
     }
 
     public FormulaContentChecker createFormulaContentChecker() {
-        return new FormulaContentChecker(this.createSyntaxChecker());
+        return new FormulaContentChecker();
     }
 
     public CoordinateChecker createCoordinateChecker() {

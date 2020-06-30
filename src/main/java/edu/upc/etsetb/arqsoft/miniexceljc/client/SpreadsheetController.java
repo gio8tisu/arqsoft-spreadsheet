@@ -7,10 +7,7 @@ import edu.upc.etsetb.arqsoft.miniexceljc.model.Content;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.Coordinate;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.Spreadsheet;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.ExpressionException;
-import edu.upc.etsetb.arqsoft.miniexceljc.util.NumericalContentChecker;
-import edu.upc.etsetb.arqsoft.miniexceljc.util.SpreadsheetLoader;
-import edu.upc.etsetb.arqsoft.miniexceljc.util.SpreadsheetSaver;
-import edu.upc.etsetb.arqsoft.miniexceljc.util.TextContentChecker;
+import edu.upc.etsetb.arqsoft.miniexceljc.util.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.view.UIFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.view.UISpreadsheet;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
@@ -18,7 +15,6 @@ import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 public class SpreadsheetController {
     private SpreadsheetFactory factory;
@@ -43,10 +39,11 @@ public class SpreadsheetController {
     }
 
     public void buildFrameWork(TextContentChecker textContentChecker,
-                               NumericalContentChecker numericalContentChecker) {
+                               NumericalContentChecker numericalContentChecker,
+                               FormulaContentChecker formulaContentChecker) {
         this.spreadsheet = this.factory.createSpreadSheet();
         this.spreadsheetLoader = this.factory.createSpreadSheetLoader(
-                textContentChecker, numericalContentChecker);
+                textContentChecker, numericalContentChecker, formulaContentChecker);
         this.spreadsheetSaver = this.factory.createSpreadSheetSaver();
         this.spreadsheetSaver.setFactory(this.factory);
     }
