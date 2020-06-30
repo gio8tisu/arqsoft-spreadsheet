@@ -20,6 +20,12 @@
             <version>5.4.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>edu.upc.arqsoft</groupId>
+            <artifactId>postfixgen_for_students</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 
