@@ -140,7 +140,7 @@ public class TextClient extends Client {
         } catch (NotComputableException e) {
             System.out.println("Cannot compute.");
         } catch (ExpressionException e) {
-            e.printStackTrace();
+            System.out.println("Expression is not valid.");
         }
     }
 
