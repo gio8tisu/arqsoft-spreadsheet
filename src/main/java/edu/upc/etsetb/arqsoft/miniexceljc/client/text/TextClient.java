@@ -34,7 +34,7 @@ public class TextClient extends Client {
         boolean end = false;
         String command;
         while (!end) {
-            System.out.println("Write command (a, s, sa, l, h, q)");
+            System.out.println("Write command (a, r, s, sa, l, h, q)");
             command = this.scanner.nextLine();
             end = this.processCommand(command);
             renderer.render(this.spreadsheet);
