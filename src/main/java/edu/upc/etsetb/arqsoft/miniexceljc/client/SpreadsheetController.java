@@ -11,6 +11,7 @@ import edu.upc.etsetb.arqsoft.miniexceljc.util.*;
 import edu.upc.etsetb.arqsoft.miniexceljc.view.UIFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.view.UISpreadsheet;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
+import edu.upc.etsetb.arqsoft.miniexceljc.visitors.EmptyCellException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.FormulaVisitor;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 
@@ -98,12 +99,16 @@ public class SpreadsheetController {
         spreadsheet.setCell(coordinate, cell);
     }
 
-    public void removeCell(CoordinateSpec coordinateSpec) throws CircularReferenceException, NotComputableException {
+    public void removeCell(CoordinateSpec coordinateSpec) throws CircularReferenceException, NotComputableException, EmptyCellException {
         Coordinate coordinate = factory.createCoordinate(coordinateSpec);
-        FormulaVisitor visitor = this.factory.createFormulaVisitor(spreadsheet, coordinate);
-        this.spreadsheet.unSetCell(coordinate);
-        updateSpreadsheet(coordinate, visitor);
-        updateUISpreadsheet();
+        if (this.spreadsheet.getCells().containsKey(coordinate)) {
+            FormulaVisitor visitor = this.factory.createFormulaVisitor(spreadsheet, coordinate);
+            this.spreadsheet.unSetCell(coordinate);
+            updateSpreadsheet(coordinate, visitor);
+            updateUISpreadsheet();
+        } else {
+            throw new EmptyCellException("Cell is already empty in given coordinate");
+        }
     }
 
     public void saveSpreadsheet() throws FilenameNotSetException {
@@ -126,4 +131,13 @@ public class SpreadsheetController {
         updateUISpreadsheet();
     }
 
+    public void showCellContent(CoordinateSpec coordinateSpec) throws EmptyCellException {
+        Coordinate coordinate = factory.createCoordinate(coordinateSpec);
+        if (this.spreadsheet.getCells().containsKey(coordinate)) {
+            String content = this.spreadsheet.getCell(coordinate).getContent().getContent();
+            this.uiSpreadsheet.setCell(coordinate, content);
+        } else {
+            throw new EmptyCellException("No content in given coordinate");
+        }
+    }
 }

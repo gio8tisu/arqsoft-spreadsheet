@@ -9,4 +9,5 @@ public interface UISpreadsheet {
     void setValueAt(Coordinate coordinate, Value value) ;
     void setFactory(SpreadsheetFactory factory) ;
     void resetCells();
+    void setCell(Coordinate coordinate, String value);
 }
