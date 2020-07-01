@@ -126,4 +126,8 @@ public class SpreadsheetController {
         updateUISpreadsheet();
     }
 
+    public void newSpreadsheet() {
+        this.spreadsheet = this.factory.createSpreadSheet();
+        uiSpreadsheet.resetCells();
+    }
 }

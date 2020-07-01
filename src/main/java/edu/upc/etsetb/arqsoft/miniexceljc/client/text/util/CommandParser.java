@@ -38,6 +38,10 @@ public class CommandParser {
             case "mv":
                 res = Command.MOVE_VIEW;
                 break;
+            case "new":
+            case "n":
+                res = Command.NEW;
+                break;
             default:
                 throw new IllegalCommandException(command + "command not known.");
         }
