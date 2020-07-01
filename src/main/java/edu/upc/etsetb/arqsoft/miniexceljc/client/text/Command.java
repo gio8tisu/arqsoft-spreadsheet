@@ -10,4 +10,5 @@ public enum Command {
     HELP,
     MOVE_VIEW,
     SHOW_CONTENT,
+    NEW,
 }

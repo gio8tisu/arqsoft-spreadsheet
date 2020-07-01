@@ -42,6 +42,10 @@ public class CommandParser {
             case "c":
                 res = Command.SHOW_CONTENT;
                 break;
+            case "new":
+            case "n":
+                res = Command.NEW;
+                break;
             default:
                 throw new IllegalCommandException(command + "command not known.");
         }

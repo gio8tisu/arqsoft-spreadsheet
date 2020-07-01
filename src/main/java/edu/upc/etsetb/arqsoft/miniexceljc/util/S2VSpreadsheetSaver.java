@@ -1,12 +1,20 @@
 package edu.upc.etsetb.arqsoft.miniexceljc.util;
 
+import edu.upc.etsetb.arqsoft.miniexceljc.factories.SpreadsheetFactory;
 import edu.upc.etsetb.arqsoft.miniexceljc.model.*;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class S2VSpreadsheetSaver extends SpreadsheetSaver {
+public class S2VSpreadsheetSaver implements SpreadsheetSaver {
+
+    protected SpreadsheetFactory factory;
+
+    @Override
+    public void setFactory(SpreadsheetFactory factory) {
+        this.factory = factory;
+    }
 
     private void writeContent(Spreadsheet spreadsheet, FileWriter writer) throws IOException {
         SpreadsheetLimit<Integer> limit = findLimit(spreadsheet);
@@ -36,18 +44,13 @@ public class S2VSpreadsheetSaver extends SpreadsheetSaver {
     }
 
     @Override
-    public void save(Spreadsheet spreadsheet) {
+    public void save(Spreadsheet spreadsheet, String filename) {
         try {
-            File file = new File(this.filename);
-            if (file.createNewFile()) {
-                logger.info("Creating new file (" + this.filename + ").");
-            } else {
-                logger.info("Overwriting file contents(" + this.filename + ").");
-            }
+            File file = new File(filename);
             FileWriter writer = new FileWriter(file);
             writeContent(spreadsheet, writer);
         } catch (IOException e) {
-            logger.severe("Error while trying to save");
+            System.out.println("Error while trying to save");
         }
     }
 
