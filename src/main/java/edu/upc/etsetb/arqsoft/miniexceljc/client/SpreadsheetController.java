@@ -24,6 +24,7 @@ public class SpreadsheetController {
     private SpreadsheetSaver spreadsheetSaver;
     protected UIFactory uiFactory;
     protected UISpreadsheet uiSpreadsheet;
+    private String filename;
 
     public SpreadsheetController() {}
 
@@ -107,13 +108,14 @@ public class SpreadsheetController {
     }
 
     public void saveSpreadsheet() throws FilenameNotSetException {
-        if (spreadsheetSaver.getFilename() == null)
+        if (this.filename == null)
             throw new FilenameNotSetException("Filename not associated");
-        spreadsheetSaver.save(spreadsheet);
+        spreadsheetSaver.save(spreadsheet, filename);
     }
 
     public void saveSpreadsheetAs(String filename) {
-        spreadsheetSaver.saveAs(spreadsheet, filename);
+        this.filename = filename;
+        spreadsheetSaver.save(spreadsheet, filename);
     }
 
     public void loadSpreadsheet(String filename) throws IOException, CircularReferenceException, NotComputableException {
@@ -126,4 +128,9 @@ public class SpreadsheetController {
         updateUISpreadsheet();
     }
 
+    public void newSpreadsheet() {
+        this.spreadsheet = this.factory.createSpreadSheet();
+        this.filename = null;
+        uiSpreadsheet.resetCells();
+    }
 }

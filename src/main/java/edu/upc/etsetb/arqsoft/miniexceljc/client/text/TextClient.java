@@ -34,7 +34,7 @@ public class TextClient extends Client {
         boolean end = false;
         String command;
         while (!end) {
-            System.out.println("Write command (a, r, s, sa, l, mv, h, q)");
+            System.out.println("Write command (a, r, s, sa, l, mv, h, n, q)");
             command = this.scanner.nextLine();
             end = this.processCommand(command);
             renderer.render(this.spreadsheet);
@@ -65,6 +65,9 @@ public class TextClient extends Client {
                     return false;
                 case MOVE_VIEW:
                     moveView();
+                    return false;
+                case NEW:
+                    newSpreadsheet();
                     return false;
                 case QUIT:
                     return true;
@@ -111,6 +114,7 @@ public class TextClient extends Client {
         System.out.println("saveas (sa): Save spreadsheet to file as given filename.");
         System.out.println("load (l): Load spreadsheet from file.");
         System.out.println("move view (mv): Set top left coordinate to move the view.");
+        System.out.println("new (n): Create new spreadsheet.");
         System.out.println("quit (q): Quit program.");
         System.out.println("help (h): Show this message.");
     }
@@ -183,6 +187,13 @@ public class TextClient extends Client {
         int columnIncrement = column - renderer.getColumnOffset();
         int rowIncrement = row - renderer.getRowOffset();
         this.renderer.moveView(rowIncrement, columnIncrement);
+    }
+
+    private void newSpreadsheet() {
+        System.out.println("Ara you sure (Y/n)? (unsaved changes will be lost)");
+        String confirm = this.scanner.nextLine();
+        if (confirm.equalsIgnoreCase("y") | confirm.isEmpty())
+            controller.newSpreadsheet();
     }
 
 }
