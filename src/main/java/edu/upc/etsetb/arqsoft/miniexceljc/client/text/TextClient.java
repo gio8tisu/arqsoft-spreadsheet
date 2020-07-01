@@ -9,6 +9,7 @@ import edu.upc.etsetb.arqsoft.miniexceljc.model.CoordinateSpec;
 import edu.upc.etsetb.arqsoft.miniexceljc.postfix.ExpressionException;
 import edu.upc.etsetb.arqsoft.miniexceljc.util.AlphabeticRadixConverter;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.CircularReferenceException;
+import edu.upc.etsetb.arqsoft.miniexceljc.visitors.EmptyCellException;
 import edu.upc.etsetb.arqsoft.miniexceljc.visitors.NotComputableException;
 
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class TextClient extends Client {
         boolean end = false;
         String command;
         while (!end) {
-            System.out.println("Write command (a, r, s, sa, l, mv, h, n, q)");
+            System.out.println("Write command (a, r, c, s, sa, l, mv, n, h, q)");
             command = this.scanner.nextLine();
             end = this.processCommand(command);
             renderer.render(this.spreadsheet);
@@ -66,7 +67,10 @@ public class TextClient extends Client {
                 case MOVE_VIEW:
                     moveView();
                     return false;
-                case NEW:
+                case SHOW_CONTENT:
+                    showContent();
+                    return false;
+               case NEW:
                     newSpreadsheet();
                     return false;
                 case QUIT:
@@ -110,6 +114,7 @@ public class TextClient extends Client {
     private void help() {
         System.out.println("add (a): Add content to cell.");
         System.out.println("remove (r): Remove content from cell.");
+        System.out.println("show content (c): Show content from cell.");
         System.out.println("save (s): Save spreadsheet to file.");
         System.out.println("saveas (sa): Save spreadsheet to file as given filename.");
         System.out.println("load (l): Load spreadsheet from file.");
@@ -133,6 +138,8 @@ public class TextClient extends Client {
             controller.removeCell(coordinateSpec);
         } catch (CircularReferenceException | NotComputableException e) {
             e.printStackTrace();
+        } catch (EmptyCellException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -189,7 +196,15 @@ public class TextClient extends Client {
         this.renderer.moveView(rowIncrement, columnIncrement);
     }
 
-    private void newSpreadsheet() {
+    private void showContent() {
+        CoordinateSpec coordinateSpec = getCoordinateFromUser();
+        try {
+            controller.showCellContent(coordinateSpec);
+        } catch (EmptyCellException e) {
+            System.out.println(e.getMessage());
+        }
+
+      private void newSpreadsheet() {
         System.out.println("Ara you sure (Y/n)? (unsaved changes will be lost)");
         String confirm = this.scanner.nextLine();
         if (confirm.equalsIgnoreCase("y") | confirm.isEmpty())

@@ -9,5 +9,6 @@ public enum Command {
     QUIT,
     HELP,
     MOVE_VIEW,
+    SHOW_CONTENT,
     NEW,
 }

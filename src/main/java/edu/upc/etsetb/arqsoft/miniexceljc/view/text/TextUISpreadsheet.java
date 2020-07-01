@@ -44,4 +44,9 @@ public class TextUISpreadsheet implements UISpreadsheet {
         this.cells = new HashMap<>();
     }
 
+    @Override
+    public void setCell(Coordinate coordinate, String value) {
+        cells.put(coordinate, value);
+    }
+
 }

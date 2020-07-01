@@ -38,6 +38,10 @@ public class CommandParser {
             case "mv":
                 res = Command.MOVE_VIEW;
                 break;
+            case "show content":
+            case "c":
+                res = Command.SHOW_CONTENT;
+                break;
             case "new":
             case "n":
                 res = Command.NEW;
